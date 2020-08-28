@@ -10,7 +10,7 @@ function changeElements(background, title, footer, names=""){
 
 function myFunction() {
   var margin = 200;
-  if (document.body.scrollTop > margin * 20 || document.documentElement.scrollTop > margin * 20) {
+  if (document.body.scrollTop > margin * 18 || document.documentElement.scrollTop > margin * 18) {
     changeElements("url('')",
     "Flatten the Curve: Fingerprints",
     "")
@@ -18,7 +18,7 @@ function myFunction() {
     changeElements("url('images/Explainer.png')",
     "Flatten the Curve: Fingerprint Explainer",
     "The Coastal GasLink pipeline plans to cut through several indigenious territories.")
-  } else if (document.body.scrollTop > margin * 5 || document.documentElement.scrollTop > margin * 3.5) {
+  } else if (document.body.scrollTop > margin * 7 || document.documentElement.scrollTop > margin * 7) {
     changeElements("url('')",
     "Flatten the Curve: Graphs",
     "")

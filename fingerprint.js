@@ -1,32 +1,46 @@
-google.charts.load('current');
-google.charts.setOnLoadCallback(init);
+var dataTable;
+
+
+// main async function, used to wait for completion of asynch tasks
+(async function() {
+  await setUpQuery();
+  dataTable = await getQuery();
+
+  processTimelineData(dataTable);
+
+})();
+
+function setUpQuery() {
+   var promise = new Promise(function(resolve, reject) {
+       google.charts.load('current');
+       google.charts.setOnLoadCallback(function(){
+           query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1r2KLSBgiou-osetpUPE3lp2nLh5dWOjuPScGft81AoY/gviz/tq?sheet=COMBINED');
+           query.setQuery('select A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T');
+          resolve('done');
+       }
+);
+   });
+   return promise;
+}
+
+function getQuery(){
+  var promise = new Promise(function(resolve, reject){
+    query.send(function(response){
+      resolve(response);
+    })
+  });
+  return promise;
+}
 
 var sort;
 
-function main(arg) {
-  sort = arg;
-  d3.selectAll("svg").remove()
-  google.charts.load('current')
-  google.charts.setOnLoadCallback(init)
-}
-
-
-
-function loadGoogleSheet(url, queryStatement, processor){
-    var query = new google.visualization.Query(url);
-    query.setQuery(queryStatement);
-    query.send(processor);
-}
-
-function init() {
-  loadGoogleSheet('https://docs.google.com/spreadsheets/d/1r2KLSBgiou-osetpUPE3lp2nLh5dWOjuPScGft81AoY/gviz/tq?sheet=COMBINED',
-    'select A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T', processTimelineData);
-}
-
 function processTimelineData(response) {
+
+  // console.log(response)
   var timeLineArray = [];
   var casesArray = []
   var timeLineData = response.getDataTable();
+  dataTable = response.getDataTable();
 
   var casesData = timeLineData.clone()
 
@@ -111,7 +125,7 @@ for(var i = 0; i< timeLineArray.length; i = i + 9){
   var casesData = casesArray.filter(d => {
     return d.state == timeLineArray[i].state})
 
-  var data = timeLineArray.slice(i, i + 8)
+  var data = timeLineArray.slice(i, i + 9)
 
   timeLineData.push({
 
@@ -133,7 +147,7 @@ for(var i = 0; i< timeLineArray.length; i = i + 9){
   })
 }
 
-console.log(timeLineData);
+// console.log(timeLineData);
 
 if(sort == 'cases'){
   timeLineData.sort(function(a,b){
@@ -146,7 +160,7 @@ else if(sort == 'deaths'){
     return b.currentDeaths - a.currentDeaths;
   })
 }
-// console.log(timeLineData);
+console.log(timeLineData);
 
 timeLineData.forEach((stateData) => {
     renderData(stateData, d3.select("#fingerprint").append("svg"));
@@ -289,6 +303,7 @@ timeLineData.forEach((stateData) => {
   }
 
 }
+
 /*
 TODO: *fix margin of timelines to align with other graph
 *current case and death numbers in title
