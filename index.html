@@ -5,8 +5,8 @@
 	<head>
 		<meta charset="utf-8" />
 		<script src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="index.js"> </script>
-  	<link rel="stylesheet" type="text/css" href="main.css">>
+    <script type="text/javascript" src="index.js"></script>
+  	<link rel="stylesheet" type="text/css" href="main.css">
 		<link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
 		<script src="https://d3js.org/d3.v5.min.js"></script>
 
@@ -19,19 +19,30 @@
 
 <body>
 
-	<ul>
-	 <li><a href="#intro">Introduction</a></li>
-	 <li><a href="#graphs">Graphs</a></li>
-	 <li><a href="#f_explainer">Fingerprint Explainer</a></li>
-	 <li><a href="#fingerprints">Fingerprints</a></li>
-	 <li><a href="#f_insight">Fingerprints Insight</a></li>
-	 <li><a href="#method">Methodology</a></li>
-	 <li><a href="#links">External Links</a></li>
- </ul>
 
-	<div id="imagecontainer">
-	<div id="title">Flatten the Curve: Policies</div>
-	 <div id="names">Adeline Chum, Spenser Krut</div>
+	<div class="dropdown">
+
+		<div class="title">Flatten the Curve: Policies</div><br>
+		<div class="title" id="names">Adeline Chum, Spenser Krut</div>
+
+	  <span style=float:right>Jump to section:</span>
+	  <div class="dropdown-content" style=float:right>
+
+			<ul>
+			 <li><a href="#intro">Introduction</a></li>
+			 <li><a href="#graphs">Graphs</a></li>
+			 <li><a href="#f_explainer">Fingerprint Explainer</a></li>
+			 <li><a href="#fingerprints">Fingerprints</a></li>
+			 <li><a href="#f_insight">Fingerprints Insight</a></li>
+			 <li><a href="#method">Methodology</a></li>
+			 <li><a href="#links">External Links</a></li>
+		 </ul>
+
+	  </div>
+	</div>
+
+	<!-- <div id="imagecontainer"> -->
+
 			<!-- <div id="footer"></div> -->
 	</div>
 
@@ -39,13 +50,17 @@
 
 	 	<p class="text sectiontitle">Introduction:<br></p>
 
+		<p class="imagecontainer"><img src="images/Orders_1.gif" alt="PDF pages of state orders"></p>
+
+		<p class="imagecontainer"><img src="images/Orders_2.gif" alt="PDF pages of state orders"></p>
+
 		<p class="text">"Flatten the curve" is a popular phrase to emerge during the COVID-19 pandemic, referencing a widely circulated diagram. The ubiquitous graph shows the number of cases plotted on the Y-axis and time on the X-axis. Two epidemic curves predict the number of cases over time with or without the implementation of preventative measures that seek to "flatten the curve."" At a set quantity of cases, another horizontal line indicates the healthcare capacity in terms of how many cases can be treated (another call to action: "raise the line"). The goal is to keep the epidemic curve flatter (below) the healthcare capacity line.</p>
 
 		<p class="text"> Many factors from various spheres influence the epidemic curve and the healthcare capacity line, but the original flatten-the-curve diagram intends to show the generalizable effect of purely preventative measures undertaken. Preventative measures include any policies or recommendations adopted to slow or stop the spread of the virus. They range from encouraging individuals to stand six feet apart to requiring them to quarantine isolated from the outside world for 14 days, if potentially exposed. The fundamental principle is limiting the opportunity for transmission between individuals (social distancing) - whether it's co-workers, classmates, customers, or family, friends, and strangers. The diagram indicates a flatter curve is the direct result of actions taken to prevent more cases. "Flatten the curve" is not just a mantra for galvanizing individuals to take preventative measures, it also is a call to policy makers... Do they listen? </p>
 
 		<p class="text"><img src="images/Covid-19-curves-graphic-social-v3.gif" alt="Flatten the Curve by Siouxsie Wiles and Toby Morris"></p>
 
-<p class="text caption">Flatten the Curve GIF created by Dr. Siouxsie Wiles, Cartoonist Toby Morris, and The Spinoff TV <br>(Wikimedia Commons)</p>
+		<p class="text caption">Flatten the Curve GIF created by Dr. Siouxsie Wiles, Cartoonist Toby Morris, and The Spinoff TV <br>(Wikimedia Commons)</p>
 
 		<p class="text">Unfortunately, when it comes to policies, the goal is not so simple as to eliminate the virus or "flatten the curve." Policies must also consider the effects of social distancing on the local and regional economy, and the mental and emotional health of constituents. Methods of balancing these considerations (public health, economy, and general well-being) vary depending on circumstance -- the size of the threat, ability to enforce, and magnitude of population it will affect. </p>
 
@@ -63,6 +78,10 @@
 
 		<p class="text">Within the US, three pacts between governors of similar regions have formed: western, northeastern, and midwest. (add state names/lists and color?) These states acknowledge the intertwined nature of their economies and how a unified approach to reopening might be more effective at slowing the spread than staggered, uncoordinated plans.</p>
 
+		<p class="text"><img src="images/Map-of-Pacts.png" alt="USA Map of State Pacts in response to COVID-19"></p>
+
+		<p class="text caption">Map of pacts formed in response to Covid-19 pandemic</p>
+
 		<p class="text">(western, northeastern, midwest observations)Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
 		<p class="text">This graph also indicates the end of "stay at home" or "safer at home" orders per state. In terms of responses, stay-at-home or safer-at-home policies have arguably been the most controversial preventative measure, infringing most dramatically on the freedom of residents. As such, they have not been adopted by every governor. </p>
@@ -77,7 +96,9 @@
 		<p class="space_container"></p>
 
 		<a name="f_explainer"></a>
-		<p class="text section title">Fingerprint Explainer: </p>
+		<p class="text sectiontitle">Fingerprint Explainer: </p>
+
+		<p class="imagecontainer"><img src="images/Explainer.png" alt="How to read Fingerprint"></p>
 
 		<p class="text">The following set of graphics combines case data and policy analysis per state. Critical preventative measures enforced at the state-level are grouped into nine general policy types: emergency declarations, school closures, "non-essential" business restrictions, restaurant restrictions, bar restrictions, gathering restrictions, quarantine or case isolation orders, stay-at-home orders, and public mask orders (<a href="#definitions">definitions of each type are in the reference section</a>). The start and end (and sometimes second start)  dates of policies within these categories define distinct policy timelines for each state. Coupled with the cases per capita chart above and death count chart below, this three-part graphic generates a unique fingerprint for each states' response to the pandemic.</p>
 
@@ -148,23 +169,25 @@
 
 		<p class="text fullwidth">Creating this data set of the start and end date of certain policy types is an on-going project, with a very rough beginning. Other projects depicting coronavirus policy data per state tend to include only the enactment of policies or a calculated "broad reopening date" (see related projects: Johns Hopkins Coronavirus Resource Center and The New York Times, Tracking the Coronavirus). This may be because determining the “end date” of policies proves incredibly time-consuming. One must negotiate expiration dates, multiple renewals or supersessions, and inaccessible (one-star) data.<sup>4</sup></p>
 
-		<ul.circ>
-				PDFs (of orders) often scans of signed documents, therefore not searchable unless processed to recognize text
-				Legal language (ex. Three pages of "whereas" before order stated)
-				Policy types initially grouped, then split up in following orders (and vice versa)
-				Revisions, extensions to orders or superseded policies reference previous orders by # not content
-				Orders issued and enacted on separate days
-				Policies within same order document given different extensions
-				Some policies/orders are reviewed (expire) every two weeks
-				Some policies allow counties to amend, some don't
-				Some states have orders coming from the governor and the secretary of public health (executive orders vs. public health orders)
-				Orders list recommendations in addition to mandates in same documents
-				Orders from same state repeat language/definitions with minor updates
-				Some states have new COVID-specific websites where mandates may be found
-				Many different exceptions per policy type per state (ex. Mask mandates include different exclusions/scenarios; ex.2 non-essential business closures staggered based on important industries in that state)
-				Transition from orders/mandates to phased reopening plans
-				We’re still in the middle of the pandemic / policy types ended may be re-enacted
+		<p class="text fullwidth indent">
+			<ul.circ>
+				<li>PDFs (of orders) often scans of signed documents, therefore not searchable unless processed to recognize text</li>
+				<li>Legal language (ex. Three pages of "whereas" before order stated)</li>
+				<li>Policy types initially grouped, then split up in following orders (and vice versa)</li>
+				<li>Revisions, extensions to orders or superseded policies reference previous orders by # not content</li>
+				<li>Orders issued and enacted on separate days</li>
+				<li>Policies within same order document given different extensions</li>
+				<li>Some policies/orders are reviewed (expire) every two weeks</li>
+				<li>Some policies allow counties to amend, some don't</li>
+				<li>Some states have orders coming from the governor and the secretary of public health (executive orders vs. public health orders)</li>
+				<li>Orders list recommendations in addition to mandates in same documents</li>
+				<li>Orders from same state repeat language/definitions with minor updates</li>
+				<li>Some states have new COVID-specific websites where mandates may be found</li>
+				<li>Many different exceptions per policy type per state (ex. Mask mandates include different exclusions/scenarios; ex.2 non-essential business closures staggered based on important industries in that state)</li>
+				<li>Transition from orders/mandates to phased reopening plans</li>
+				<li>We’re still in the middle of the pandemic / policy types ended may be re-enacted</li>
 			</ul>
+		</p>
 
 
 			<a name="links"></a>
