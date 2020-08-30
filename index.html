@@ -3,46 +3,61 @@
 <html lang="en">
 
 	<head>
-    <script type="text/javascript" src="index.js"> </script>
-  	<link rel="stylesheet" type="text/css" href="main.css">
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<link rel="shortcut icon" href="#" />
+		<meta charset="utf-8" />
 		<script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="index.js"> </script>
+  	<link rel="stylesheet" type="text/css" href="main.css">>
+		<link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
 		<script src="https://d3js.org/d3.v5.min.js"></script>
+
 		<style>
 		img{ width:100%
 		}
 		</style>
+
   </head>
 
 <body>
 
-	<div id="header_bar">
-		<div id="title">Flatten the Curve: Policies</div>
-	  <div id="names">Adeline Chum, Spenser Krut</div>
+	<ul>
+	 <li><a href="#intro">Introduction</a></li>
+	 <li><a href="#graphs">Graphs</a></li>
+	 <li><a href="#f_explainer">Fingerprint Explainer</a></li>
+	 <li><a href="#fingerprints">Fingerprints</a></li>
+	 <li><a href="#f_insight">Fingerprints Insight</a></li>
+	 <li><a href="#method">Methodology</a></li>
+	 <li><a href="#links">External Links</a></li>
+ </ul>
+
+	<div id="imagecontainer">
+	<div id="title">Flatten the Curve: Policies</div>
+	 <div id="names">Adeline Chum, Spenser Krut</div>
 			<!-- <div id="footer"></div> -->
 	</div>
 
-	 	<p class="text"><b>Introduction:</b><br></p>
+		<a name="intro"></a>
 
-		<p class="text">"Flatten the curve" is a popular phrase to emerge during the COVID-19 pandemic, referencing a widely circulated diagram. The ubiquitous graph shows the number of cases plotted on the Y-axis and time on the X-axis. Two epidemic curves predict the number of cases over time with or without the implementation of preventative measures that seek to "flatten the curve." At a set quantity of cases, another horizontal line indicates the healthcare capacity in terms of how many cases can be treated (another call to action: "raise the line"). The goal is to keep the epidemic curve flatter (below) the healthcare capacity line.</p>
+	 	<p class="text sectiontitle">Introduction:<br></p>
+
+		<p class="text">"Flatten the curve" is a popular phrase to emerge during the COVID-19 pandemic, referencing a widely circulated diagram. The ubiquitous graph shows the number of cases plotted on the Y-axis and time on the X-axis. Two epidemic curves predict the number of cases over time with or without the implementation of preventative measures that seek to "flatten the curve."" At a set quantity of cases, another horizontal line indicates the healthcare capacity in terms of how many cases can be treated (another call to action: "raise the line"). The goal is to keep the epidemic curve flatter (below) the healthcare capacity line.</p>
 
 		<p class="text"> Many factors from various spheres influence the epidemic curve and the healthcare capacity line, but the original flatten-the-curve diagram intends to show the generalizable effect of purely preventative measures undertaken. Preventative measures include any policies or recommendations adopted to slow or stop the spread of the virus. They range from encouraging individuals to stand six feet apart to requiring them to quarantine isolated from the outside world for 14 days, if potentially exposed. The fundamental principle is limiting the opportunity for transmission between individuals (social distancing) - whether it's co-workers, classmates, customers, or family, friends, and strangers. The diagram indicates a flatter curve is the direct result of actions taken to prevent more cases. "Flatten the curve" is not just a mantra for galvanizing individuals to take preventative measures, it also is a call to policy makers... Do they listen? </p>
 
-		<p class="text"><img src="Covid-19-curves-graphic-social-v3.gif" alt="Flatten the Curve by Siouxsie Wiles and Toby Morris"></p>
+		<p class="text"><img src="images/Covid-19-curves-graphic-social-v3.gif" alt="Flatten the Curve by Siouxsie Wiles and Toby Morris"></p>
 
-<!-- Image courtesy of Wikimedia Commons, created by Dr. Siouxsie Wiles, Cartoonist Toby Morris, and The Spinoff TV -->
+<p class="text caption">Flatten the Curve GIF created by Dr. Siouxsie Wiles, Cartoonist Toby Morris, and The Spinoff TV <br>(Wikimedia Commons)</p>
 
-		<p class="text">Unfortunately, when it comes to policies, the goal is not so simple as to eliminate the virus or "flatten the curve." Policies must also consider the effects of social distancing on the local and regional economy, and the mental and emotional health of constituents. Methods of balancing these considerations (public health, economy, and general well-being) vary depending on circumstance -- the size of the threat, ability to enforce, and magnitude of population it will affect. Within the United States, there are many scales of policy implementation: institutional (business), city, county, state, federal, and global. </p>
+		<p class="text">Unfortunately, when it comes to policies, the goal is not so simple as to eliminate the virus or "flatten the curve." Policies must also consider the effects of social distancing on the local and regional economy, and the mental and emotional health of constituents. Methods of balancing these considerations (public health, economy, and general well-being) vary depending on circumstance -- the size of the threat, ability to enforce, and magnitude of population it will affect. </p>
 
-		<p class="text">There is currently a vacuum of leadership at the federal level made apparent by the lack of a standardized data collection and reporting process <sup>1</sup>, slow and insufficient distribution of federal funds<sup>2</sup>, and lax gating criteria and preparedness guidelines<sup>3</sup>. This, coupled with the inaccuracies and resolution of current case data, suggests that an analysis of preventative measures at the state-level could be more reliably looked at with overall case outcomes. State governments have some leeway with directives and assistance given by the federal government as well as jurisdiction over counties, cities, and businesses within their borders—governors play critical roles in flattening the curve. </p>
+		<p class="text">Within the United States, there are many scales of policy implementation: institutional (business), city, county, state, federal, and global. There is currently a vacuum of leadership at the federal level made apparent by the lack of a standardized data collection and reporting process <sup>1</sup>, slow and insufficient distribution of federal funds<sup>2</sup>, and lax gating criteria and preparedness guidelines<sup>3</sup>. This, coupled with the inaccuracies and resolution of current case data, suggests that an analysis of preventative measures at the state-level could be more reliably looked at with overall case outcomes. State governments have some leeway with directives and assistance given by the federal government as well as jurisdiction over counties, cities, and businesses within their borders—governors play critical roles in flattening the curve. </p>
 
 		<p class="text">This project is interested in pairing coronavirus case outcomes of states with the day-to-day evolution of certain preventive measures enforced at state-level. Since there is not a top down approach nationally, approaches and directives issued by states vary greatly. For instance, in March and early April, all 50 states declared a total of 10 different types of emergencies (wildfires, heat waves, and hurricanes excluded) in order to gain more flexibility in their responses. Further, whether important information is shared in executive orders or by other means by other state departments varies depending on the state. This project seeks to clarify the numerous approaches to policies related to COVID-19 by focusing on certain policy types present across the nation.
 		</p>
 
 		<p class="space_container"></p>
 
-		<p class="text"><b>Graphs Explainer:</b></p>
+		<a name="graphs"></a>
+		<p class="text sectiontitle">Graphs Explainer:</p>
 
 		<p class="text">The interactive graph shows the cases per capita from every state including the US as a whole. When looking at these curves, the country shows signs of struggles from coast to coast to flatten the curve. Some epidemic curves convey steady increases, others second waves. A preliminary filter oriented around like policy responses starts to indicate the effect of preventative measures on the case outcomes of each state.</p>
 
@@ -50,7 +65,7 @@
 
 		<p class="text">(western, northeastern, midwest observations)Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-		<p class="text">This interactive graph also indicates the end of "stay at home" or "safer at home" orders per state. In terms of responses, stay-at-home or safer-at-home policies have arguably been the most controversial preventative measure, infringing most dramatically on the freedom of residents. As such, they have not been adopted by every governor (no mandates/recommendation category color) nor totally enforced with fines or incarceration for violations.</p>
+		<p class="text">This graph also indicates the end of "stay at home" or "safer at home" orders per state. In terms of responses, stay-at-home or safer-at-home policies have arguably been the most controversial preventative measure, infringing most dramatically on the freedom of residents. As such, they have not been adopted by every governor. </p>
 
 		<p class="text">(no mandate observation)Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 
@@ -61,23 +76,27 @@
 		<script type="text/javascript" src="graph.js"> </script>
 		<p class="space_container"></p>
 
+		<a name="f_explainer"></a>
+		<p class="text section title">Fingerprint Explainer: </p>
 
-		<p class="text"><b>Fingerprint Explainer:</b><br>The following set of graphics combines case data and policy analysis per state. Critical preventative measures enforced at the state-level are grouped into nine general policy types: emergency declarations, school closures, "non-essential" business restrictions, restaurant restrictions, bar restrictions, gathering restrictions, quarantine or case isolation orders, stay-at-home orders, and public mask orders (definitions of each type are in the reference section). The start and end (and sometimes second start)  dates of policies within these categories define distinct policy timelines for each state. Coupled with the cases per capita chart above and death count chart below, this three-part graphic generates a unique fingerprint for each states' response to the pandemic.</p>
+		<p class="text">The following set of graphics combines case data and policy analysis per state. Critical preventative measures enforced at the state-level are grouped into nine general policy types: emergency declarations, school closures, "non-essential" business restrictions, restaurant restrictions, bar restrictions, gathering restrictions, quarantine or case isolation orders, stay-at-home orders, and public mask orders (<a href="#definitions">definitions of each type are in the reference section</a>). The start and end (and sometimes second start)  dates of policies within these categories define distinct policy timelines for each state. Coupled with the cases per capita chart above and death count chart below, this three-part graphic generates a unique fingerprint for each states' response to the pandemic.</p>
 
 		<p class="space_container"></p>
 		<p class="space_container"></p>
+
+		<a name="fingerprints"></a>
 
 		<div id="button_panel">
-      <button type="button" onclick="main('name')">Sort By Name</button>
-      <button type="button" onclick="main('cases')">Sort By Cases</button>
-      <button type="button" onclick="main('deaths')">Sort By Deaths</button>
-      <label for="cars">Filter by Pact:</label>
+      <button type="button" onclick="setSort('name', data)">Sort By Name</button>
+      <button type="button" onclick="setSort('cases', data)">Sort By Cases</button>
+      <button type="button" onclick="setSort('deaths', data)">Sort By Deaths</button>
+      <label for="pacts">Filter by Pact:</label>
       <select name="pacts" id="pacts">
-        <option value="all">All</option>
-        <option value="northeast">Northeast</option>
-        <option value="midwest">Midwest</option>
-        <option value="western">Western</option>
-        <option value="na">N/A</option>
+        <option value="all" onclick="setFilter('All', data)">All</option>
+        <option value="northeast" onclick="setFilter('Northeast', data)">Northeast</option>
+        <option value="midwest" onclick="setFilter('Midwest', data)">Midwest</option>
+        <option value="western" onclick="setFilter('Western', data)">Western</option>
+        <option value="na" onclick="setFilter('N/A', data)">N/A</option>
       </select>
     </div>
 
@@ -91,14 +110,23 @@
 <p class="space_container"></p>
 <p class="space_container"></p> -->
 
-		<p class="text fullwidth"><b>Insight from Fingerprints:</b><br>How do post-reopening case outcomes differ between states with similar policies and approaches to reopening? between states with different policies? Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<a name="f_insight"></a>
 
-		<p class="text fullwidth"><b>Methodology:</b><br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		<p class="text fullwidth sectiontitle">Insight from Fingerprints:</p>
 
-		<p class="text fullwidth"><b>References:</b></p>
+		<p class="text fullwidth">How do post-reopening case outcomes differ between states with similar policies and approaches to reopening? between states with different policies? Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+		<a name="method"></a>
+
+		<p class="text fullwidth sectiontitle">Methodology:</p>
+
+		<p class="text fullwidth">The interactive graph component of the project was an early test we include because the results of filtering the states by pact hints at our initial research question: how do different policy types and durations affect case outcomes at the state-level? Those states agreeing to corresponding phased reopening plans appear to be charting in similar patterns. Moreover, our early interest in stay-at-home or safer-at-home orders only appeared to be one part of a much larger and longer response by governors to flatten the curve. From these observations, we wanted to go deeper and question what reopening per state looked like from the perspective of preventative measures being lifted. </p>
+
+			<p class="text fullwidth">This project’s strength as a research tool is derived from its focus on when certain policy types “ended” and the ability to evaluate case outcomes with that information overlaid. We examined hundreds of state policies and other forms of published guidance to generate nine primary categories of preventative measures addressed. Definitions of these policy types are as follows:</p>
+
+		<a name="definitions"></a>
 
 		<p class="text fullwidth indent">
-			<b>Policy type definitions:</b><br>
 
 			<b>Emergency Declaration </b>- start date of emergency declaration by the governor of the state; end date is defined as either the expiration date of the most recent order or undefined by governor. <br>
 
@@ -118,7 +146,30 @@
 
 			<b>Mask</b> - start and end date of policy mandating masks be worn in public, indoors or outdoors. </p>
 
-			<p class="text fullwidth"><b>References:</b></p>
+		<p class="text fullwidth">Creating this data set of the start and end date of certain policy types is an on-going project, with a very rough beginning. Other projects depicting coronavirus policy data per state tend to include only the enactment of policies or a calculated "broad reopening date" (see related projects: Johns Hopkins Coronavirus Resource Center and The New York Times, Tracking the Coronavirus). This may be because determining the “end date” of policies proves incredibly time-consuming. One must negotiate expiration dates, multiple renewals or supersessions, and inaccessible (one-star) data.<sup>4</sup></p>
+
+		<ul.circ>
+				PDFs (of orders) often scans of signed documents, therefore not searchable unless processed to recognize text
+				Legal language (ex. Three pages of "whereas" before order stated)
+				Policy types initially grouped, then split up in following orders (and vice versa)
+				Revisions, extensions to orders or superseded policies reference previous orders by # not content
+				Orders issued and enacted on separate days
+				Policies within same order document given different extensions
+				Some policies/orders are reviewed (expire) every two weeks
+				Some policies allow counties to amend, some don't
+				Some states have orders coming from the governor and the secretary of public health (executive orders vs. public health orders)
+				Orders list recommendations in addition to mandates in same documents
+				Orders from same state repeat language/definitions with minor updates
+				Some states have new COVID-specific websites where mandates may be found
+				Many different exceptions per policy type per state (ex. Mask mandates include different exclusions/scenarios; ex.2 non-essential business closures staggered based on important industries in that state)
+				Transition from orders/mandates to phased reopening plans
+				We’re still in the middle of the pandemic / policy types ended may be re-enacted
+			</ul>
+
+
+			<a name="links"></a>
+
+			<p class="text fullwidth sectiontitle"><b>Links:</b></p>
 
 				<p class="text fullwidth indent">
 					<b> COVID-19 Case Data </b><br>
