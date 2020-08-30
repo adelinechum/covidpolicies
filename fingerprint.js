@@ -30,8 +30,6 @@ function update(data) {
 
 var data = filterBy(filteringState.filterType, sortBy(filteringState.sortType,data))
 
-alert('updating')
-
 renderAll(data)
 
 }
@@ -283,6 +281,8 @@ x = d3.scaleLinear()
       .attr("font-family", "sans-serif")
       .attr("font-size", "10")
       .attr("text-anchor", "end");
+
+      svg.style("z-index:", 3)
 
     svg.append("text").text(state.state + " Cases: " + d3.format(",")(state.currentCases)
     + ", Deaths: " + d3.format(",")(state.currentDeaths))
