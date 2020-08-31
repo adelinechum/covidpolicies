@@ -209,6 +209,13 @@ min-height: 100vh;
 	font-size: 15px;
 }
 
+@media (max-width: 500px) {
+  text, main {
+    width: 100%;
+    height: auto;
+  }
+}
+
 #fingerprint{
   display: flex;
   flex-wrap: wrap;
@@ -218,12 +225,12 @@ min-height: 100vh;
 }
 
 /* fingerprint container */
-.container1{
+/* .container1{
 	position: absolute;
 	top: 0;
 	height: 1000px;
 	width: 1000px;
-}
+} */
 
 .sectiontitle{
 	font-size: 20px;

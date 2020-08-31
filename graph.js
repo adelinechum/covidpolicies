@@ -90,8 +90,8 @@ return table;
     enrichedData, line, svg, xAxis, yAxis
 
 function initGraphs(data){
-  width = 1300;
-  height = 700;
+  width = 1200;
+  height = 650;
   margins = {left: 50, right: 50, top: 50, bottom: 50}
   minDate = new Date(2020, 03, 01)
   maxDate = new Date(2020,07, 31)
