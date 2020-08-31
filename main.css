@@ -59,6 +59,7 @@ li a{
 	text-decoration: none;
 }
 
+
 /* Change the link color on hover */
 li a:hover {
   background-color: black;
@@ -91,7 +92,7 @@ li a:hover {
 ul.circ{
 	list-style-type: circle;
 	margin: 50px;
-	padding: 20px;
+	/* padding: 20px; */
 	display: inline;
 	background: white;
   list-style-position: outside;
@@ -101,24 +102,112 @@ ol.decimal{
 	list-style-type: decimal;
   list-style-position: outside;
 	margin: 50px;
-	padding: 20px;
+	padding: 0px;
 	display: inline;
 	background: white;
 	text-align:left;
+	display: none;
+	color: black;
 
 }
 
-/* #img_title{
+/* for graph */
+#filterBy{
+	width: 150px;
+}
+
+#graphContainer{
+	float: right;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap
+}
+
+#button_panel{
+	width: 100%; margin-bottom: 50px
+}
+
+.space_container{
+	top: 9000px;
+	height: 350px;
+}
+
+body {
+	margin-top: 50px;
+  font-family: 'Open Sans', 'Roboto', 'Source Sans Pro', sans-serif;
+  color: #111111;
+	-webkit-text-size-adjust: 100%;
+-webkit-font-feature-settings: "kern" 1;
+-moz-font-feature-settings: "kern" 1;
+-o-font-feature-settings: "kern" 1;
+font-feature-settings: "kern" 1;
+font-kerning: normal;
+display: flex;
+min-height: 100vh;
+/* flex-direction: column; */
+}
+
+/* Column container */
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+}
+
+/* Main column */
+.main {
+  -ms-flex: 80%; /* IE10 */
+  flex: 80%;
+  background-color: white;
+  padding:0px;
+	align: center;
+}
+
+.text{
+	-ms-flex: 20; /* IE10 */
+	flex: 20%;
+	padding: 0px;
+	/* position: relative; */
+	left: 20px;
+	/* padding: 7px; */
+	max-width: 20%;
+	background-color: white;
+	/* border-radius: 5px; */
+	color: #111111;
+	-webkit-text-size-adjust: 100%;
+	font-weight: light;
+	opacity: 85%;
 	font-size: 15px;
-	position: absolute;
-	top: -10%;
-	/* left: 0%; */
-  letter-spacing: 1px;
-  line-height: 1;
-	font-weight: 400;
-	background: white;
-	text-align: center;
-} */
+}
+
+
+
+.fullwidth{
+	width: 100%;
+	padding: 5px;
+	left: 10px;
+	background-color: white;
+	/* border-radius: 5px; */
+	color: #111111;
+	-webkit-text-size-adjust: 100%;
+	font-weight: light;
+	opacity: 85%;
+	font-size: 15px;
+}
+
+.halfwidth{
+	max-width: 50%;
+	padding: 0px;
+	left: 10px;
+	background-color: white;
+	/* border-radius: 5px; */
+	color: #111111;
+	-webkit-text-size-adjust: 100%;
+	font-weight: light;
+	opacity: 85%;
+	font-size: 15px;
+}
 
 #fingerprint{
   display: flex;
@@ -136,88 +225,28 @@ ol.decimal{
 	width: 1000px;
 }
 
-.imagecontainer {
-	z-index: 0;
-	width: 80%;
-	height: 90%;
-	top: 10%;
-	left: 20%;
-	/* transform: translate(-50%,-50%); */
-	position:relative;
-	/* background-image: url('images/Orders_1.gif'); */
-	/* background-repeat: no-repeat; */
-	/* background-size: contain; */
-	display: inline-block;
-}
-
-#filterBy{
-	width: 150px;
-}
-
-#graphContainer{
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap
-}
-
-#button_panel{
-	width: 100%; margin-bottom: 50px
-}
-
-.space_container{
-	top: 18000px;
-	height: 350px;
-}
-
-body {
-	margin-top: 50px;
-  font-family: 'Open Sans', 'Roboto', sans-serif;
-  color: #111111;
-	-webkit-text-size-adjust: 100%;
--webkit-font-feature-settings: "kern" 1;
--moz-font-feature-settings: "kern" 1;
--o-font-feature-settings: "kern" 1;
-font-feature-settings: "kern" 1;
-font-kerning: normal;
-display: flex;
-min-height: 100vh;
-flex-direction: column;
-}
-
-.text{
-	position: relative;
-	top: 10%;
-	left: 10px;
-	/* padding: 7px; */
-	max-width: 20%;
-	background-color: white;
-	/* border-radius: 5px; */
-	color: #111111;
-	font-family: 400 14px/1.5 'Open Sans','Source Sans Pro';
-	-webkit-text-size-adjust: 100%;
-	font-weight: light;
-	opacity: 85%;
-	font-size: 15px;;
-}
-
-.fullwidth{
-	max-width: 50%;
+.sectiontitle{
+	font-size: 20px;
+	font weight: 2000px;
 }
 
 .indent{
 	left: 50px;
 }
 
-.sectiontitle{
-	font-size: 20px;
-	font weight: bold;
-}
-
 .caption{
 	font-style: italic;
 	text-align: center;
+	font-size: 12px;
 }
 
+.img_title{
+	font-size: 20px;
+	text-align: center;
+	font-style: italic;
+}
+
+/* DO I need anything below? */
 .axis path,
 .axis line {
   fill: none;

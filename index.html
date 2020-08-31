@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<script src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="index.js"></script>
+    <!-- <script type="text/javascript" src="index.js"></script> -->
   	<link rel="stylesheet" type="text/css" href="main.css">
 		<link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
 		<script src="https://d3js.org/d3.v5.min.js"></script>
@@ -22,9 +22,9 @@
 	<div class="dropdown">
 
 		<div class="title">Flatten the Curve: Policies</div><br>
-		<div class="title" id="names">Adeline Chum, Spenser Krut</div>
+		<div class="title" id="names">Adeline Chum, Spenser Krut &nbsp;&nbsp;&nbsp;&nbsp; <i>(Last Updated: July 31, 2020)</i></div>
 
-	  <span style=float:right>Jump to section:        .</span>
+	  <span style=float:right>Jump to section:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 	  <div class="dropdown-content" style=float:right>
 
 			<ul>
@@ -40,191 +40,214 @@
 	  </div>
 	</div>
 
-	<!-- <div id="imagecontainer"> -->
+	<div class="row">
 
-			<!-- <div id="footer"></div> -->
+		<div class="text">
+			<a name="intro"></a>
+			<p class="sectiontitle">Introduction:</p>
 
-		<a name="intro"></a>
+			"Flatten the curve" is a popular phrase to emerge during the COVID-19 pandemic, referencing a widely circulated diagram. The ubiquitous graph shows the number of cases plotted on the Y-axis and time on the X-axis. Two epidemic curves predict the number of cases over time with or without the implementation of preventative measures that seek to "flatten the curve."" At a set quantity of cases, another horizontal line indicates the healthcare capacity in terms of how many cases can be treated (another call to action: "raise the line"). The goal is to keep the epidemic curve flatter (below) the healthcare capacity line.
 
-	 	<p class="text sectiontitle">Introduction:<br></p>
+			<br><br> Many factors from various spheres influence the epidemic curve and the healthcare capacity line, but the original flatten-the-curve diagram intends to show the generalizable effect of purely preventative measures undertaken. Preventative measures include any policies or recommendations adopted to slow or stop the spread of the virus. They range from encouraging individuals to stand six feet apart to requiring them to quarantine isolated from the outside world for 14 days, if potentially exposed. The fundamental principle is limiting the opportunity for transmission between individuals (social distancing) - whether it's co-workers, classmates, customers, or family, friends, and strangers. The diagram indicates a flatter curve is the direct result of actions taken to prevent more cases. "Flatten the curve" is not just a mantra for galvanizing individuals to take preventative measures, it also is a call to policy makers... Do they listen?
 
-		<p class="imagecontainer"><img src="images/Orders_1.gif" alt="PDF pages of state orders"></p>
-		<p class="imagecontainer"><img src="images/Orders_2.gif" alt="PDF pages of state orders"></p>
+			<br><br><img src="images/Covid-19-curves-graphic-social-v3.gif" alt="Flatten the Curve by Siouxsie Wiles and Toby Morris" style=width:100%>
 
-		<p class="text">"Flatten the curve" is a popular phrase to emerge during the COVID-19 pandemic, referencing a widely circulated diagram. The ubiquitous graph shows the number of cases plotted on the Y-axis and time on the X-axis. Two epidemic curves predict the number of cases over time with or without the implementation of preventative measures that seek to "flatten the curve."" At a set quantity of cases, another horizontal line indicates the healthcare capacity in terms of how many cases can be treated (another call to action: "raise the line"). The goal is to keep the epidemic curve flatter (below) the healthcare capacity line.</p>
+			<p class="caption">Flatten the Curve GIF created by Dr. Siouxsie Wiles, Cartoonist Toby Morris, and The Spinoff TV <br>(Wikimedia Commons)</p>
 
-		<p class="text"> Many factors from various spheres influence the epidemic curve and the healthcare capacity line, but the original flatten-the-curve diagram intends to show the generalizable effect of purely preventative measures undertaken. Preventative measures include any policies or recommendations adopted to slow or stop the spread of the virus. They range from encouraging individuals to stand six feet apart to requiring them to quarantine isolated from the outside world for 14 days, if potentially exposed. The fundamental principle is limiting the opportunity for transmission between individuals (social distancing) - whether it's co-workers, classmates, customers, or family, friends, and strangers. The diagram indicates a flatter curve is the direct result of actions taken to prevent more cases. "Flatten the curve" is not just a mantra for galvanizing individuals to take preventative measures, it also is a call to policy makers... Do they listen? </p>
+			<br><br>Unfortunately, when it comes to policies, the goal is not so simple as to eliminate the virus or "flatten the curve." Policies must also consider the effects of social distancing on the local and regional economy, and the mental and emotional health of constituents. Methods of balancing these considerations (public health, economy, and general well-being) vary depending on circumstance -- the size of the threat, ability to enforce, and magnitude of population it will affect.
 
-		<p class="text"><img src="images/Covid-19-curves-graphic-social-v3.gif" alt="Flatten the Curve by Siouxsie Wiles and Toby Morris"></p>
+			<br><br>Within the United States, there are many scales of policy implementation: institutional (business), city, county, state, federal, and global. There is currently a vacuum of leadership at the federal level made apparent by the lack of a standardized data collection and reporting process <a href="#1"><sup>1</sup></a>, slow and insufficient distribution of federal funds<a href="#2"><sup>2</sup></2></a>, and lax gating criteria and preparedness guidelines<a href="#3"><sup>3</sup></a>. This, coupled with the inaccuracies and resolution of current case data, suggests that an analysis of preventative measures at the state-level could be more reliably looked at with overall case outcomes. State governments have some leeway with directives and assistance given by the federal government as well as jurisdiction over counties, cities, and businesses within their borders -- governors play critical roles in flattening the curve.
 
-		<p class="text caption">Flatten the Curve GIF created by Dr. Siouxsie Wiles, Cartoonist Toby Morris, and The Spinoff TV <br>(Wikimedia Commons)</p>
+			<br><br>This project is interested in pairing coronavirus case outcomes of states with the day-to-day evolution of certain preventive measures enforced at state-level. Since there is not a top down approach nationally, approaches and directives issued by states vary greatly. For instance, in March and early April, all 50 states declared a total of 10 different types of emergencies (wildfires, heat waves, and hurricanes excluded) in order to gain more flexibility in their responses. Further, whether important information is shared in executive orders or by other means by other state departments varies depending on the state. This project seeks to clarify the numerous approaches to policies related to COVID-19 by focusing on certain policy types present across the nation.
 
-		<p class="text">Unfortunately, when it comes to policies, the goal is not so simple as to eliminate the virus or "flatten the curve." Policies must also consider the effects of social distancing on the local and regional economy, and the mental and emotional health of constituents. Methods of balancing these considerations (public health, economy, and general well-being) vary depending on circumstance -- the size of the threat, ability to enforce, and magnitude of population it will affect. </p>
+			<br><br><br>
 
-		<p class="text">Within the United States, there are many scales of policy implementation: institutional (business), city, county, state, federal, and global. There is currently a vacuum of leadership at the federal level made apparent by the lack of a standardized data collection and reporting process <a href="#1"><sup>1</sup></a>, slow and insufficient distribution of federal funds<a href="#2"><sup>2</sup></2></a>, and lax gating criteria and preparedness guidelines<a href="#3"><sup>3</sup></a>. This, coupled with the inaccuracies and resolution of current case data, suggests that an analysis of preventative measures at the state-level could be more reliably looked at with overall case outcomes. State governments have some leeway with directives and assistance given by the federal government as well as jurisdiction over counties, cities, and businesses within their borders -- governors play critical roles in flattening the curve. </p>
+			<a name="graphs"></a>
 
-		<p class="text">This project is interested in pairing coronavirus case outcomes of states with the day-to-day evolution of certain preventive measures enforced at state-level. Since there is not a top down approach nationally, approaches and directives issued by states vary greatly. For instance, in March and early April, all 50 states declared a total of 10 different types of emergencies (wildfires, heat waves, and hurricanes excluded) in order to gain more flexibility in their responses. Further, whether important information is shared in executive orders or by other means by other state departments varies depending on the state. This project seeks to clarify the numerous approaches to policies related to COVID-19 by focusing on certain policy types present across the nation.</p>
+			<p class="sectiontitle">Graph Explainer:</p>
 
-		<p class="space_container"></p>
+			The interactive graph shows the cases per capita from every state including the US as a whole. When looking at these curves, the country shows signs of struggles from coast to coast to flatten the curve. Some epidemic curves convey steady increases, others second waves. A preliminary filter oriented around like policy responses starts to indicate the effect of preventative measures on the case outcomes of each state.
 
-		<a name="graphs"></a>
-		<p class="text sectiontitle">Graph Explainer:</p>
+			<br><br>Within the US, three pacts between governors of similar regions have formed: western (pink), northeastern (green), and midwest (orange). These states acknowledge the intertwined nature of their economies and how a unified approach to reopening might be more effective at slowing the spread than staggered, uncoordinated plans.</p>
 
-		<p class="text">The interactive graph shows the cases per capita from every state including the US as a whole. When looking at these curves, the country shows signs of struggles from coast to coast to flatten the curve. Some epidemic curves convey steady increases, others second waves. A preliminary filter oriented around like policy responses starts to indicate the effect of preventative measures on the case outcomes of each state.</p>
+			<br><br><img src="images/Map-of-Pacts.png" alt="USA Map of State Pacts in response to COVID-19" style=width:100%>
 
-		<p class="text">Within the US, three pacts between governors of similar regions have formed: western (pink), northeastern (green), and midwest (orange). These states acknowledge the intertwined nature of their economies and how a unified approach to reopening might be more effective at slowing the spread than staggered, uncoordinated plans.</p>
+			<p class="caption">Map of pacts formed in response to Covid-19 pandemic</p>
 
-		<p class="text"><img src="images/Map-of-Pacts.png" alt="USA Map of State Pacts in response to COVID-19"></p>
+			When filtering by pact, curves begin to appear more parallel. The curves of the Northeastern pact show a common early rise but steady (or flattening) progress; Midwest pact states fall in the middle, with clearly upturned ends; the group of Western states fluctuate slightly more, but share lower case counts until approximately mid-June.
 
-		<p class="text caption">Map of pacts formed in response to Covid-19 pandemic</p>
+			<br><br>This graph also indicates the end of "stay at home" or "safer at home" orders per state. In terms of responses, stay-at-home or safer-at-home policies have arguably been the most controversial preventative measure, infringing most dramatically on the freedom of residents. As such, they have not been adopted by every governor (grey curves) nor totally enforced with fines or incarceration for violations. The highest case counts, and some of the steepest increases, are currently being posted by states not participating in pacts.
 
-		<p class="text">When filtering by pact, curves begin to appear more parallel. The curves of the Northeastern pact show a common early rise but steady (or flattening) progress; Midwest pact states fall in the middle, with clearly upturned ends; the group of Western states fluctuate slightly more, but share lower case counts until approximately mid-June.</p>
+			<br><br>Aside from stay-at-home or safer-at-home orders, another variation in approaches to policies is the presence or lack of phased reopening plans per state. Hover over a state’s curve to see if it published a reopening plan; all are linked in the reference section below.
 
-		<p class="text">This graph also indicates the end of "stay at home" or "safer at home" orders per state. In terms of responses, stay-at-home or safer-at-home policies have arguably been the most controversial preventative measure, infringing most dramatically on the freedom of residents. As such, they have not been adopted by every governor (grey curves) nor totally enforced with fines or incarceration for violations. The highest case counts, and some of the steepest increases, are currently being posted by states not participating in pacts. </p>
+			<br><br><br>
 
-		<p class="text">Aside from stay-at-home or safer-at-home orders, another variation in approaches to policies is the presence or lack of phased reopening plans per state. Hover over a state’s curve to see if it published a reopening plan; all are linked in the reference section below.</p>
+			<a name="f_explainer"></a>
+
+			<p class="sectiontitle">Fingerprint Explainer: </p>
+
+				The following set of graphics combines case data and policy analysis per state. Critical preventative measures enforced at the state-level are grouped into nine general policy types: emergency declarations, school closures, "non-essential" business restrictions, restaurant restrictions, bar restrictions, gathering restrictions, quarantine or case isolation orders, stay-at-home orders, and public mask orders (<a href="#definitions">definitions of each type are in the reference section</a>). The start and end (and sometimes second start)  dates of policies within these categories define distinct policy timelines for each state. Coupled with the cases per capita chart above and death count chart below, this three-part graphic generates a unique fingerprint for each states' response to the pandemic.
+
+				<br><br>The top-to-bottom order of the timeline is structured to reflect target demographics. Emergency declarations were typically the first piece of coronavirus-related legislation issued in order to expedite the state government’s ability to respond. Business or institutional closures and restrictions follow, instigating the shutdown of the local economy. Policies affecting individuals on a personal level (ie. having to quarantine after travelling or exposure) are the bottom four bars of the timeline and also some of the less frequent policies to appear throughout.
+
+				<br><br>The graphics load in alphabetical order. To reorganize the visualizations per state, choose to sort by most cases, most deaths, or date of first policy implemented. To filter the visualizations, use the drop down to see only graphics by pact, no stay-at-home policy, or no mask policy.
+
+				<br><br>Each fingerprint is also coded in one of three colors: red, blue, or purple. Red indicates the popular vote of the state supported the Republican party in the 2016 presidential election; blue, Democrat; purple indicates a swing state with Republican and Democratic votes within 10% of each other. Further, the party affiliation of each governor can be found per fingerprint and linked in our data set available in the <a href="ref">reference section.</a>
+
+		</div>
+
+		<div class="main">
+			<br><br><br>
+
+			<p class="img_title">Stay At Home Order Documents of Each State</p>
+
+			<img src="images/Orders_1.gif" alt="PDF pages of state orders" style=width:100%>
+
+			<br><br>
+
+			<img src="images/Orders_2.gif" alt="PDF pages of state orders" style=width:100%>
+
+			<br><br>
+
+			<p class="space_container"></p>
+
+					<p class="img_title">Cases per Capita Graph</p>
+
+						<div id="graphContainer" style=width:100%>
+							<label for="pacts">Filter by Pact or Stay At Home Policy:</label>
+
+							<select name="filterBy" id="filterBy">
+								<optgroup label="Pacts">
+									<option value="all" onclick="setFilter('All')">All States</option>
+									<option value="northeast" onclick="setFilter('Northeast')">Northeast</option>
+									<option value="midwest" onclick="setFilter('Midwest')">Midwest</option>
+									<option value="western" onclick="setFilter('Western')">Western</option>
+									<option value="na" onclick="setFilter('N/A')">N/A</option>
+								</optgroup>
+								<optgroup label="Stay At Home Policy">
+									<option value="man" onclick="setFilter('Yes')">Had Mandate</option>
+									<option value="noMan" onclick="setFilter('NoMan')">No Mandate</option>
+									<option value="noManNoRec" onclick="setFilter('NoManNoRec')">No Mandate and No Recommendation</option>
+								</optgroup>
+							</select>
+							<svg id="chart"></svg>
 
 
 
-			<div id="graphContainer">
-				<label for="pacts">Filter by Pact or Stay At Home Policy:</label>
 
-				<select name="filterBy" id="filterBy">
-					<optgroup label="Pacts">
-						<option value="all" onclick="setFilter('All')">All States</option>
-						<option value="northeast" onclick="setFilter('Northeast')">Northeast</option>
-						<option value="midwest" onclick="setFilter('Midwest')">Midwest</option>
-						<option value="western" onclick="setFilter('Western')">Western</option>
-						<option value="na" onclick="setFilter('N/A')">N/A</option>
-					</optgroup>
-					<optgroup label="Stay At Home Policy">
-						<option value="man" onclick="setFilter('Yes')">Had Mandate</option>
-						<option value="noMan" onclick="setFilter('NoMan')">No Mandate</option>
-						<option value="noManNoRec" onclick="setFilter('NoManNoRec')">No Mandate and No Recommendation</option>
-					</optgroup>
-				</select>
-				<svg id="chart"></svg>
-			</div>
+					<p class="space_container"></p>
 
-			<script type="text/javascript" src="graph.js"></script>
+					<p class="img_title">How to Read Fingerprints</p>
 
-		<p class="space_container"></p>
+					<img src="images/Explainer.png" alt="How to read Fingerprint" style=width:80%>
 
-		<a name="f_explainer"></a>
+		</div>
 
-		<p class="text sectiontitle">Fingerprint Explainer: </p>
+	</div>
 
-		<p class="imagecontainer"><img src="images/Explainer.png" alt="How to read Fingerprint"></p>
 
-		<p class="text">The following set of graphics combines case data and policy analysis per state. Critical preventative measures enforced at the state-level are grouped into nine general policy types: emergency declarations, school closures, "non-essential" business restrictions, restaurant restrictions, bar restrictions, gathering restrictions, quarantine or case isolation orders, stay-at-home orders, and public mask orders (<a href="#definitions">definitions of each type are in the reference section</a>). The start and end (and sometimes second start)  dates of policies within these categories define distinct policy timelines for each state. Coupled with the cases per capita chart above and death count chart below, this three-part graphic generates a unique fingerprint for each states' response to the pandemic.</p>
-
-		<p class="text">The top-to-bottom order of the timeline is structured to reflect target demographics. Emergency declarations were typically the first piece of coronavirus-related legislation issued in order to expedite the state government’s ability to respond. Business or institutional closures and restrictions follow, instigating the shutdown of the local economy. Policies affecting individuals on a personal level (ie. having to quarantine after travelling or exposure) are the bottom four bars of the timeline and also some of the less frequent policies to appear throughout.</p>
-
-		<p class="text">The graphics load in alphabetical order. To reorganize the visualizations per state, choose to sort by most cases, most deaths, or date of first policy implemented. To filter the visualizations, use the drop down to see only graphics by pact, no stay-at-home policy, or no mask policy.</p>
-
-		<p class="text">Each fingerprint is also coded in one of three colors: red, blue, or purple. Red indicates the popular vote of the state supported the Republican party in the 2016 presidential election; blue, Democrat; purple indicates a swing state with Republican and Democratic votes within 10% of each other. Further, the party affiliation of each governor can be found per fingerprint and linked in our data set available in the <a href="ref">reference section.</a></p>
-
-		<p class="space_container"></p>
-		<p class="space_container"></p>
+<br><br><br>
+	<div class="fullwidth">
 
 		<a name="fingerprints"></a>
 
 		<div id="button_panel">
-      <button type="button" onclick="setSort('name', data)">Sort By Name</button>
-      <button type="button" onclick="setSort('cases', data)">Sort By Cases</button>
-      <button type="button" onclick="setSort('deaths', data)">Sort By Deaths</button>
-      <label for="pacts">Filter by Pact:</label>
-      <select name="pacts" id="pacts">
-        <option value="all" onclick="setFilter('All', data)">All</option>
-        <option value="northeast" onclick="setFilter('Northeast', data)">Northeast</option>
-        <option value="midwest" onclick="setFilter('Midwest', data)">Midwest</option>
-        <option value="western" onclick="setFilter('Western', data)">Western</option>
-        <option value="na" onclick="setFilter('N/A', data)">N/A</option>
-      </select>
-    </div>
-
-		<div id="fingerprint"></div>
-			<script src="./fingerprint.js"></script>
-
-<!-- <p class="space_container"></p>
-<p class="space_container"></p>
-<p class="space_container"></p>
-<p class="space_container"></p>
-<p class="space_container"></p>
-<p class="space_container"></p> -->
-
-		<a name="f_insight"></a>
-
-		<p class="text fullwidth sectiontitle">Project Insights:</p>
-
-		<p class="text fullwidth">The following is some of our preliminary insights derived from looking at the newly created data set visualized. As expected, New York and California, two of the most populous states, have the most deaths and most cases respectively. These states’ responses included six to eight policy types enacted earlier than almost every other state and for a longer duration than seen in other states. The highest rate of cases per capita for each: 2.16 e-02 and 1.26 e-02. Contrast this with Florida, another populous state, and their rate of 2.14 e-02 and climbing; the state’s number of cases is exponentially increasing. The duration of policy types appear shorter than New York and California and a public mask policy is absent.</p>
-
-		<p class="text fullwidth">Across the board, mask policies appear as contentious as stay-at-home or safer-at-home orders. 15 states do not have any state-required mask policies in public; 12 states have no Stay at Home orders; and 5 states have enacted neither mask or stay-at-home mandates. Maine, New York, Rhode Island, and Vermont are the only state responses at present that had all nine policy types active at the same time, with varying case outcomes. This suggests population and the scale of metropolitan areas plays a large role in case outcomes beyond policy measures.</p>
-
-		<p class="text fullwidth">The addition of the death count charts below the policy types in each fingerprint paints another intriguing picture. Five months into this pandemic, it’s shocking to see death counts growing, almost mirroring the cases per capita charts above. Though death counts and preventative policies may not have a direct relationship, seeing deaths grow as cases rise begs the question of what types of policies are or are not working for the infected population -- how would this analysis look different if executive orders that address hospital budgets for healthcare worker provisions were included? Recent news coverage emphasizes the growing number of cases are a product of younger generations becoming infected, but how does this explain growing death counts?</p>
-
-		<p class="text fullwidth">Thinking about how this project might evolve as the pandemic continues to unravel, we are interested in looking more closely at the gating criteria<a href="#4"><sup>4</sup></a> adopted by every state and how it influenced policy expirations or endings. When generating these fingerprints per state, it is obvious in some cases, even the minimum guideline of a downward trajectory of cases was not reached before policies were changed. Were states following the science behind the virus’ incubation period and did this decision (of following or not) greatly affect case outcomes?</p>
-
-		<a name="method"></a>
-
-		<p class="text fullwidth sectiontitle">Methodology:</p>
-
-		<p class="text fullwidth">The interactive graph component of the project was an early test we include because the results of filtering the states by pact hints at our initial research question:<i> how do different policy types and durations affect case outcomes at the state-level?</i> Those states agreeing to corresponding phased reopening plans appear to be charting in similar patterns. Moreover, our early interest in stay-at-home or safer-at-home orders only appeared to be one part of a much larger and longer response by governors to flatten the curve. From these observations, we wanted to go deeper and question what reopening per state looked like from the perspective of preventative measures being lifted. </p>
-
-			<p class="text fullwidth">This project’s strength as a research tool is derived from its focus on when certain policy types “ended” and the ability to evaluate case outcomes with that information overlaid. We examined hundreds of state policies and other forms of published guidance to generate nine primary categories of preventative measures addressed. Definitions of these policy types are as follows:</p>
-
-		<a name="definitions"></a>
-
-		<p class="text fullwidth indent">
-
-			<b>Emergency Declaration </b> - start date of emergency declaration by the governor of the state; end date is defined as either the expiration date of the most recent order or undefined by governor. <br><br>
-
-			<b>School Closure</b> - start date of closure of public school facilities for in-person instruction; end date is defined as when the Department of Education or governor published the first guidance document for school districts to plan for the fall term. <br><br>
-
-			<b>Non-essential Business Closure</b> - start date of facility, office, or storefront closure of more than one type of non-essential business as defined by the U.S. government; end date of restriction on in-person, in-store/facility/office operations. <br><br>
-
-			<b>Restaurant Restrictions</b> - start date of substantial reduction of operations of businesses defined as restaurants and similar food venues; end date of restriction on indoor dining at site.<br><br>
-
-			<b>Bar Restrictions</b> - start date of substantial reduction of operations of site’s whose primary source of revenue is the sale of liquor; end date of restriction on indoor dining at site. <br><br>
-
-			<b>Gathering Restriction (Any) </b> - start and end date of any restriction on the number of people allowed to gather indoors or outdoors. <br><br>
-
-			<b>Quarantine/Case Isolation </b> - start and end date of either mandatory quarantine for individuals travelling into the state (or recently exposed to the virus) or case isolation for individuals with confirmed case of COVID-19.<br><br>
-
-			<b>Stay at Home</b> - start and end date of policy mandating individuals stay in their place of residence and only go out for essential services.<br><br>
-
-			<b>Mask</b> - start and end date of policy mandating masks be worn in public, indoors or outdoors. </p>
-
-		<p class="text fullwidth">Creating this data set of the start and end date of certain policy types is an on-going project, with a very rough beginning. Other projects depicting coronavirus policy data per state tend to include only the enactment of policies or a calculated "broad reopening date" (see related projects: <a href="https://coronavirus.jhu.edu/data/state-timeline">Johns Hopkins Coronavirus Resource Center</a> and <a href="https://www.nytimes.com/interactive/2020/us/states-reopen-map-coronavirus.html">The New York Times, Tracking the Coronavirus</a>). This may be because determining the “end date” of policies proves incredibly time-consuming. One must negotiate expiration dates, multiple renewals or supersessions, and inaccessible (one-star) data.<a href="#5"><sup>5</sup></a></p>
-
-		<div class="text fullwidth indent">
-
-			<ul.circ>
-				<li>PDFs (of orders) often scans of signed documents, therefore not searchable unless processed to recognize text</li>
-				<li>Legal language (ex. Three pages of "whereas" before order stated)</li>
-				<li>Policy types initially grouped, then split up in following orders (and vice versa)</li>
-				<li>Revisions, extensions to orders or superseded policies reference previous orders by # not content</li>
-				<li>Orders issued and enacted on separate days</li>
-				<li>Policies within same order document given different extensions</li>
-				<li>Some policies/orders are reviewed (expire) every two weeks</li>
-				<li>Some policies allow counties to amend, some don't</li>
-				<li>Some states have orders coming from the governor and the secretary of public health (executive orders vs. public health orders)</li>
-				<li>Orders list recommendations in addition to mandates in same documents</li>
-				<li>Orders from same state repeat language/definitions with minor updates</li>
-				<li>Some states have new COVID-specific websites where mandates may be found</li>
-				<li>Many different exceptions per policy type per state (ex. Mask mandates include different exclusions/scenarios; ex.2 non-essential business closures staggered based on important industries in that state)</li>
-				<li>Transition from orders/mandates to phased reopening plans</li>
-				<li>We’re still in the middle of the pandemic / policy types ended may be re-enacted</li>
-			</ul>
+			<button type="button" onclick="setSort('name', data)">Sort By Name</button>
+			<button type="button" onclick="setSort('cases', data)">Sort By Cases</button>
+			<button type="button" onclick="setSort('deaths', data)">Sort By Deaths</button>
+			<label for="pacts">Filter by Pact:</label>
+			<select name="pacts" id="pacts">
+				<option value="all" onclick="setFilter('All', data)">All</option>
+				<option value="northeast" onclick="setFilter('Northeast', data)">Northeast</option>
+				<option value="midwest" onclick="setFilter('Midwest', data)">Midwest</option>
+				<option value="western" onclick="setFilter('Western', data)">Western</option>
+				<option value="na" onclick="setFilter('N/A', data)">N/A</option>
+			</select>
 		</div>
 
+		<div id="fingerprint"></div>
+
+
+			<!-- <p class="space_container"></p> -->
+	</div>
+			<br><br><br>
+
+	<div class="halfwidth">
+
+			<a name="f_insight"></a>
+			<div class="sectiontitle">Project Insights:</div>
+
+			<br>The following is some of our preliminary insights derived from looking at the newly created data set visualized. As expected, New York and California, two of the most populous states, have the most deaths and most cases respectively. These states’ responses included six to eight policy types enacted earlier than almost every other state and for a longer duration than seen in other states. The highest rate of cases per capita for each: 2.16 e-02 and 1.26 e-02. Contrast this with Florida, another populous state, and their rate of 2.14 e-02 and climbing; the state’s number of cases is exponentially increasing. The duration of policy types appear shorter than New York and California and a public mask policy is absent.
+
+			<br><br>Across the board, mask policies appear as contentious as stay-at-home or safer-at-home orders. 15 states do not have any state-required mask policies in public; 12 states have no Stay at Home orders; and 5 states have enacted neither mask or stay-at-home mandates. Maine, New York, Rhode Island, and Vermont are the only state responses at present that had all nine policy types active at the same time, with varying case outcomes. This suggests population and the scale of metropolitan areas plays a large role in case outcomes beyond policy measures.
+
+			<br><br>The addition of the death count charts below the policy types in each fingerprint paints another intriguing picture. Five months into this pandemic, it’s shocking to see death counts growing, almost mirroring the cases per capita charts above. Though death counts and preventative policies may not have a direct relationship, seeing deaths grow as cases rise begs the question of what types of policies are or are not working for the infected population -- how would this analysis look different if executive orders that address hospital budgets for healthcare worker provisions were included? Recent news coverage emphasizes the growing number of cases are a product of younger generations becoming infected, but how does this explain growing death counts?
+
+			<br><br>Thinking about how this project might evolve as the pandemic continues to unravel, we are interested in looking more closely at the gating criteria<a href="#4"><sup>4</sup></a> adopted by every state and how it influenced policy expirations or endings. When generating these fingerprints per state, it is obvious in some cases, even the minimum guideline of a downward trajectory of cases was not reached before policies were changed. Were states following the science behind the virus’ incubation period and did this decision (of following or not) greatly affect case outcomes?
+
+			<br><br>
+
+			<a name="method"></a>
+			<p class="sectiontitle">Methodology:</p>
+
+			The interactive graph component of the project was an early test we include because the results of filtering the states by pact hints at our initial research question:<i> how do different policy types and durations affect case outcomes at the state-level?</i> Those states agreeing to corresponding phased reopening plans appear to be charting in similar patterns. Moreover, our early interest in stay-at-home or safer-at-home orders only appeared to be one part of a much larger and longer response by governors to flatten the curve. From these observations, we wanted to go deeper and question what reopening per state looked like from the perspective of preventative measures being lifted.
+
+			<br><br>This project’s strength as a research tool is derived from its focus on when certain policy types “ended” and the ability to evaluate case outcomes with that information overlaid. We examined hundreds of state policies and other forms of published guidance to generate nine primary categories of preventative measures addressed. Definitions of these policy types are as follows:
+
+			<br><br>
+
+			<a name="definitions"></a>
+			<div class="indent">
+				<b>Emergency Declaration </b> - start date of emergency declaration by the governor of the state; end date is defined as either the expiration date of the most recent order or undefined by governor. <br><br>
+
+				<b>School Closure</b> - start date of closure of public school facilities for in-person instruction; end date is defined as when the Department of Education or governor published the first guidance document for school districts to plan for the fall term. <br><br>
+
+				<b>Non-essential Business Closure</b> - start date of facility, office, or storefront closure of more than one type of non-essential business as defined by the U.S. government; end date of restriction on in-person, in-store/facility/office operations. <br><br>
+
+				<b>Restaurant Restrictions</b> - start date of substantial reduction of operations of businesses defined as restaurants and similar food venues; end date of restriction on indoor dining at site.<br><br>
+
+				<b>Bar Restrictions</b> - start date of substantial reduction of operations of site’s whose primary source of revenue is the sale of liquor; end date of restriction on indoor dining at site. <br><br>
+
+				<b>Gathering Restriction (Any) </b> - start and end date of any restriction on the number of people allowed to gather indoors or outdoors. <br><br>
+
+				<b>Quarantine/Case Isolation </b> - start and end date of either mandatory quarantine for individuals travelling into the state (or recently exposed to the virus) or case isolation for individuals with confirmed case of COVID-19.<br><br>
+
+				<b>Stay at Home</b> - start and end date of policy mandating individuals stay in their place of residence and only go out for essential services.<br><br>
+
+				<b>Mask</b> - start and end date of policy mandating masks be worn in public, indoors or outdoors.
+			</div>
+
+
+			<br><br>Creating this data set of the start and end date of certain policy types is an on-going project, with a very rough beginning. Other projects depicting coronavirus policy data per state tend to include only the enactment of policies or a calculated "broad reopening date" (see related projects: <a href="https://coronavirus.jhu.edu/data/state-timeline">Johns Hopkins Coronavirus Resource Center</a> and <a href="https://www.nytimes.com/interactive/2020/us/states-reopen-map-coronavirus.html">The New York Times, Tracking the Coronavirus</a>). This may be because determining the “end date” of policies proves incredibly time-consuming. One must negotiate expiration dates, multiple renewals or supersessions, and inaccessible (one-star) data.<a href="#5"><sup>5</sup></a>
+
+			<br><br>
+
+			<div class="indent circ">
+				<ul.circ>
+					<li>PDFs (of orders) often scans of signed documents, therefore not searchable unless processed to recognize text</li>
+					<li>Legal language (ex. Three pages of "whereas" before order stated)</li>
+					<li>Policy types initially grouped, then split up in following orders (and vice versa)</li>
+					<li>Revisions, extensions to orders or superseded policies reference previous orders by # not content</li>
+					<li>Orders issued and enacted on separate days</li>
+					<li>Policies within same order document given different extensions</li>
+					<li>Some policies/orders are reviewed (expire) every two weeks</li>
+					<li>Some policies allow counties to amend, some don't</li>
+					<li>Some states have orders coming from the governor and the secretary of public health (executive orders vs. public health orders)</li>
+					<li>Orders list recommendations in addition to mandates in same documents</li>
+					<li>Orders from same state repeat language/definitions with minor updates</li>
+					<li>Some states have new COVID-specific websites where mandates may be found</li>
+					<li>Many different exceptions per policy type per state (ex. Mask mandates include different exclusions/scenarios; ex.2 non-essential business closures staggered based on important industries in that state)</li>
+					<li>Transition from orders/mandates to phased reopening plans</li>
+					<li>We’re still in the middle of the pandemic / policy types ended may be re-enacted</li>
+				</ul>
+			</div>
+
 			<a name="links"></a>
+			<p class="sectiontitle">Reference & Links:</p>
 
-			<p class="text fullwidth sectiontitle">Reference & Links:</p>
+			<div class="indent decimal">
 
-			<div class="text fullwidth indent">
-
-				<ol.decimal>
+				<ol>
 					<li><a name="1"> <a href="https://www.nytimes.com/2020/07/21/health/coronavirus-data-states-cdc.html"> https://www.nytimes.com/2020/07/21/health/coronavirus-data-states-cdc.html</a></a></li>
 
 					<li><a name="2"> <a href="https://www.nga.org/news/press-releases/national-governors-association-leadership-urges-senate-to-approve-state-stabilization-funding/"> https://www.nga.org/news/press-releases/national-governors-association-leadership-urges-senate-to-approve-state-stabilization-funding/</a></a></li>
@@ -239,13 +262,12 @@
 			</div>
 
 			<a name="ref"></a>
-			<p class="text fullwidth">
 
 					Our data is available <a href="https://docs.google.com/spreadsheets/d/1r2KLSBgiou-osetpUPE3lp2nLh5dWOjuPScGft81AoY/edit?usp=sharing">here</a>. Governor names and party affiliation as well as links to states’ executive orders, health orders, and reopening plans are included in the sheet titled <i>Main_Categories</i>.
 
 					<br><br>
 
-					Our coronavirus case and death data comes from <a href="https://github.com/nytimes/covid-19-data">The New York Times</a>. Our policy timeline data is sourced from policy updates per state found on government websites (see below for links) and the <a href="https://www.nga.org/coronavirus-state-actions-all/#NE">National Governors Association</a>. This data creation is aided by cross-referencing the work of <a href="http://www.covid19statepolicy.org">COVID19 State Policy researchers from the University of Washington</a>.
+					Our coronavirus case and death data comes from < href="https://github.com/nytimes/covid-19-data">The New York Times</a>. Our policy timeline data is sourced from policy updates per state found on government websites (see below for links) and the <a href="https://www.nga.org/coronavirus-state-actions-all/#NE">National Governors Association</a>. This data creation is aided by cross-referencing the work of <a href="http://www.covid19statepolicy.org">COVID19 State Policy researchers from the University of Washington</a>.
 
 					<br><br>
 
@@ -257,9 +279,10 @@
 
 					<a href="https://www.cdc.gov/coronavirus/2019-ncov/downloads/php/CDC-Activities-Initiatives-for-COVID-19-Response.pdf">CDC supporting guidelines for Opening Up America</a>
 
-				</p>
 
-
+		</div>
 	</body>
+	<script type="text/javascript" src="graph.js"></script>
+	<script type="text/javascript" src="fingerprint.js"></script>
 
 </html>

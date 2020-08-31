@@ -1,3 +1,4 @@
+{
 var data
 
 const filteringState = {filterType: 'All'};
@@ -15,7 +16,6 @@ const filteringState = {filterType: 'All'};
   update()
 
 })();
-
 
 // set up google visualization query
 function setUpQuery(sheetLocation, queryStatement) {
@@ -90,8 +90,8 @@ return table;
     enrichedData, line, svg, xAxis, yAxis
 
 function initGraphs(data){
-  width = 800;
-  height = 600;
+  width = 1300;
+  height = 700;
   margins = {left: 50, right: 50, top: 50, bottom: 50}
   minDate = new Date(2020, 03, 01)
   maxDate = new Date(2020,07, 31)
@@ -283,8 +283,6 @@ tooltip
     .attr("x", "50%")
     .attr("dy", "1.2em")
 
-
-
   text.append("tspan")
     .text("Pact: " + d.pact)
     .attr("x", "50%")
@@ -343,4 +341,5 @@ function getClosestDate(d, date) {
 
   return d.datapoints[index].date
 
+}
 }
