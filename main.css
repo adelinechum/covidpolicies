@@ -14,7 +14,6 @@
   display: inline-block;
 	padding: 10px 10px;
 	z-index: 1;
-
 }
 
 .dropdown-content {
@@ -55,7 +54,7 @@ li a{
   /* float: right; */
 	display: block;
 	color: black;
-	text-align: center;
+	text-align: auto;
 	padding: 8px 10px;
 	text-decoration: none;
 }
@@ -89,7 +88,6 @@ li a:hover {
 	top: 4%;
 }
 
-
 ul.circ{
 	list-style-type: circle;
 	margin: 50px;
@@ -97,10 +95,20 @@ ul.circ{
 	display: inline;
 	background: white;
   list-style-position: outside;
+}
+
+ol.decimal{
+	list-style-type: decimal;
+  list-style-position: outside;
+	margin: 50px;
+	padding: 20px;
+	display: inline;
+	background: white;
+	text-align:left;
 
 }
 
-#img_title{
+/* #img_title{
 	font-size: 15px;
 	position: absolute;
 	top: -10%;
@@ -110,15 +118,7 @@ ul.circ{
 	font-weight: 400;
 	background: white;
 	text-align: center;
-}
-
-#chart {
-  height: 600px;
-	width: 75%;
-	position:relative;
-	top: -250px;
-	left: 25%;
-}
+} */
 
 #fingerprint{
   display: flex;
@@ -143,12 +143,21 @@ ul.circ{
 	top: 10%;
 	left: 20%;
 	/* transform: translate(-50%,-50%); */
-	position: relative;
+	position:relative;
 	/* background-image: url('images/Orders_1.gif'); */
-	z-index: 0;
 	/* background-repeat: no-repeat; */
-	background-size: contain;
+	/* background-size: contain; */
 	display: inline-block;
+}
+
+#filterBy{
+	width: 150px;
+}
+
+#graphContainer{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap
 }
 
 #button_panel{
@@ -158,20 +167,6 @@ ul.circ{
 .space_container{
 	top: 18000px;
 	height: 350px;
-}
-
-div.tooltip {
-    position: absolute;
-    text-align: left;
-    width: 150px;
-    height: 50px;
-    padding: 2px;
-    font: 12px sans-serif;
-    background: lightsteelblue;
-    border: 0px;
-    z-index: 100;
-    /* border-radius: 8px; */
-    pointer-events: none;
 }
 
 body {
@@ -239,12 +234,6 @@ flex-direction: column;
 .references h{
 	font-style: italic;
 	font-size: 25px;
-}
-.axis path,
-.axis line {
-  fill: none;
-  stroke: black;
-  shape-rendering: crispEdges;
 }
 
 .axis text {

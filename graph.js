@@ -1,246 +1,346 @@
-// Define margins
-var margin = {top: 20, right: 80, bottom: 30, left: 50},
-width = parseInt(d3.select("#chart").style("width")) - margin.left - margin.right,
-height = parseInt(d3.select("#chart").style("height")) - margin.top - margin.bottom;
+var data
 
-// Define date parser
-var parseDate = d3.time.format("%Y-%m-%d").parse;
+const filteringState = {filterType: 'All'};
 
-// Define scales
-var xScale = d3.time.scale().range([0, width]);
-var yScale = d3.scale.linear().range([height, 0]);
-var color = d3.scale.ordinal()
-      // .range(["#808080"]);
-      .range(["#F16745","#FFC65D","#7BC8A4","#4CC3D9","#93648D"," #404040"])
-// .range(["#440154", "#482878", "#3e4989","#31688e", "#26828e","#1f9e89", "#35b779","#6ece58", "#b5de2b", "#fde725", "#fde725", "#fde725"]);
+// main async function, used to wait for completion of asynch tasks
+(async function() {
+  google.charts.load('current');
+  await setUpQuery('https://docs.google.com/spreadsheets/d/1r2KLSBgiou-osetpUPE3lp2nLh5dWOjuPScGft81AoY/gviz/tq?sheet=RAW_NYT_us-states',
+'select *');
+  var dataTable = await getQuery();
+  data = createTrendingData(createTable(dataTable));
 
-// Define axes
-var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
-var yAxis = d3.svg.axis().scale(yScale).orient("left");
+  initGraphs(data)
 
-// Define lines
-var line = d3.svg.line().interpolate("basis")
-            .x(function(d) { return xScale(d["date"]); })
-            .y(function(d) { return yScale(d["concentration"]); });
+  update()
 
-// Define svg canvas
-var svg = d3.select("#chart")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-var circle;
-
-// Read in data
-// d3.csv("giniLine.csv", function(error, data){
-//   if (error) throw error;
-d3.csv("data5.csv", function(error, data){
-  if (error) throw error;
-
-  var stateColumn = data.map(function(d) {
-    return {
-      state: d.state
-    }
-    });
-
-    var stateKeys = {};
-    stateColumn.forEach( function( item ) {
-        var grade = stateKeys[item.state] = stateKeys[item.state] || {};
-        grade[item.Domain] = true;
-    });
-
-    stateKeys = Object.keys(stateKeys)
-
-    var pactColumn = data.map(function(d) {
-      return {
-        pact: d.Pact
-      }
-      });
+})();
 
 
-    var pactKeys = {};
-    pactColumn.forEach( function( item ) {
-        var grade = pactKeys[item.pact] = pactKeys[item.pact] || {};
-        grade[item.Domain] = true;
-    });
+// set up google visualization query
+function setUpQuery(sheetLocation, queryStatement) {
+   var promise = new Promise(function(resolve, reject) {
+       google.charts.setOnLoadCallback(function(){
+           query = new google.visualization.Query(sheetLocation);
+           query.setQuery(queryStatement);
+          resolve('done');
+       }
+);
+   });
+   return promise;
+}
 
-    pactKeys = Object.keys(pactKeys);
-
-  console.log(pactKeys);
-
-  color.domain(pactKeys);
-
-  // console.log(JSON.stringify(data, null, 2)) // to view the structure
-
-  // Format the data field
-  data.forEach(function(d){
-    d["date"] = parseDate(d["date"])
+// send query and return the response
+function getQuery(){
+  var promise = new Promise(function(resolve, reject){
+    query.send(function(response){
+      resolve(response);
+    })
   });
+  return promise;
+}
 
-  // Filter the data to only include a single metric
-  var subset = data.filter(function(el) {return el.metric === "CaseCapita" });
-  // console.log(JSON.stringify(subset, null, 2))
+var sort;
 
-  // Reformat data to make it more copasetic for d3
-  // data = An array of objects
-  // concentrations = An array of three objects, each of which contains an array of objects
-// pact: data.filter(function(d){ return d.state == state })["pact"][0]
+// transform google response into an array
+function createTable(response){
+  var dataArray =[];
+  var data = response.getDataTable();
+  var columns = data.getNumberOfColumns();
+  var rows = data.getNumberOfRows();
+  var table = [];
 
-  // console.log(data.filter(function(d){ return d.state == "Washington" })[0].Pact)
+  for (var r = 0; r < rows; r++) {
+    var row = [];
+    for (var c = 0; c < columns; c++) {
+      row.push(data.getFormattedValue(r, c));
+    }
+    table.push(row)
+  }
 
-  // TODO: find a better way to get pact
+  return table;
+}
 
-  var concentrations = stateKeys.map(function(state){
-    return {state: state, pact: data.filter(function(d){ return d.state == state })[0].Pact,
-    datapoints: data.filter(function(d){ return d.state == state }).map(function(d){
-      return {date: d["date"], concentration: d["CaseCapita"], cases: d["cases"]}
-    })}
-  })
+//transform array of data into JSON
+function createTrendingData(table){
+
+    table = table.map(d =>
+      { return {
+        date: new Date(d[0]),
+        state: d[1],
+        fips: +d[2],
+        cases: +d[3],
+        deaths: +d[4],
+        stateDate: d[5],
+        population: +d[6],
+        caseCapita: +d[7],
+        pact: d[8],
+        color: d[9],
+        stayAtHomeRec: d[10]
+      }}
+    )
+
+return table;
+
+  }
 
 
-  console.log(JSON.stringify(concentrations, null, 2)) // to view the structure
+  // Define scales
+  var minDate, maxDate, margins, width, heigtht, xScale, yScale, color,
+    enrichedData, line, svg, xAxis, yAxis
 
-  // Set the domain of the axes
-  xScale.domain(d3.extent(data, function(d) {return d["date"]; }));
+function initGraphs(data){
+  width = 800;
+  height = 600;
+  margins = {left: 50, right: 50, top: 50, bottom: 50}
+  minDate = new Date(2020, 03, 01)
+  maxDate = new Date(2020,07, 31)
 
-  yScale.domain([0, d3.max(data, function(d) { return +d.CaseCapita; })]);
 
-  // Place the axes on the chart
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
+// define x-axis
+  xScale = d3.scaleLinear()
+    .domain([minDate, maxDate])
+    .range([0, width])
+    .clamp(true);
 
-  svg.append("g")
+//define y-axis
+  yExtent = d3.extent(data.map((d) => {
+    return d.caseCapita
+  }))
+
+  yScale = d3.scaleLinear()
+    .domain(yExtent)
+    .range([height, 0])
+
+
+  color = d3.scaleOrdinal()
+    .range(["#D6156F","#0BD60F","#D69B15","#808080"])
+    .domain(["Western", "Northeast", "Midwest", "N/A"])
+
+
+  // TODO: move to a different function
+
+    // get unique states
+    var uniqueStates = Array.from(new Set(data.map((d) => {
+      return d.state
+    })))
+
+    // uniqueStates = ["Alabama"]
+
+    enrichedData = uniqueStates.map(state => {
+      return {state: state, pact: data.filter(function(d){ return d.state == state })[0].pact,
+      stayAtHomeRec: data.filter(function(d){ return d.state == state })[0].stayAtHomeRec,
+      datapoints: data.filter(function(d){ return d.state == state }).map(function(d){
+        return {date: d.date, concentration: d.caseCapita, cases: d.cases, deaths: d.deaths}
+      })}
+    })
+
+    // filter out all #N/A states
+    enrichedData = enrichedData.filter((state) => {
+      return state.pact != "#N/A"
+    })
+
+    line = d3.line()
+    .x(function(d){return xScale(d.date)})
+    .y(function(d){return yScale(d.concentration)})
+    .curve(d3.curveBasis);
+
+    console.log(enrichedData);
+
+    svg = d3.select("#chart")
+                .attr("width", width + margins.left + margins.right)
+                .attr("height", height + margins.top + margins.bottom)
+                .append("g")
+                .attr("id","canvas")
+                .attr("transform", "translate(" + margins.left + "," + margins.top + ")");
+
+                // Place the axes on the chart
+    xAxis = svg.append("g")
+                    .attr("class", "x axis")
+                    .attr("transform", "translate(0, " + (height) + ")")
+
+    xAxis.call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%m/%d")));
+
+
+    yAxis = svg.append("g")
       .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("class", "label")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .attr("dx", ".71em")
-      .style("text-anchor", "beginning")
-      .text("COVID Cases Per Capita");
+      // .attr("transform", "translate(" + margins.left + ", 0)")
 
-  var products = svg.selectAll(".category")
-        .data(concentrations)
+    yAxis.call(d3.axisLeft(yScale).tickFormat(d3.format(",")))
+
+}
+
+var products
+
+function functionName() {
+
+}
+
+//update data and draw lines on graph
+function update() {
+
+  // remove products if already populated
+  if(products != null){products.remove()}
+
+  //filter data
+  var filteredData = filterBy(filteringState.filterType)
+
+  products = svg.selectAll(".category")
+        .data(filteredData)
         .enter().append("g")
         .attr("class", "category");
 
   products.append("path")
           .attr("class", "line")
+          .attr("fill", "none")
+          .style("stroke", "black")
           .attr("d", function(d) {return line(d.datapoints); })
-          .style("stroke", function(d) {return color(d.pact); });
+          .style("stroke", function(d) {return color(d.pact); })
+          .style("stroke-width", 2);
 
-    // console.log(JSON.stringify(d3.values(concentrations), null, 2)) // to view the structure
-    // console.log(d3.values(concentrations)); // to view the structure
-    // console.log(concentrations);
-    // console.log(concentrations.map(function()))
-    // circle = d3.select("svg").append("circle").attr("id", "circlej").attr("cx", 25).attr("cy", 25).attr("r", 25).style("fill", "purple");
+  d3.selectAll(".line").on("mouseover", handleMouseOver).on("mouseout", handleMouseOut)
 
-// why doesn't htis work when I take it out
-    d3.selectAll(".line").on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
-    // Create Event Handlers for mouse
+}
 
-    function getCasesByDate(date, d){
-      for(var i = 0; i < d.length; i++){
-        // need to make this more precise
-        if(Math.abs(((d[i].date - date) / 3600000)) < 24)
-        {
-          // console.log(d[i].date - date)
-          // console.log("searched date: " + date)
-          // console.log("matched date: " + d[i].date);
-          return d[i].cases;
-        }
-      }
-    }
+// function to get the x and y coordinates of an element
+// function getNodeCoordinate(selection) {
+//   var selection = selection.node().getBoundingClientRect()
+//   return{x: selection.x, y:selection.y}
+// }
 
-    function roundDate(timeStamp){
-    timeStamp -= timeStamp % (24 * 60 * 60 * 1000);//subtract amount of time since midnight
-    timeStamp += new Date().getTimezoneOffset() * 60 * 1000;//add on the timezone offset
-    return new Date(timeStamp);
-    }
-
-    var tooltip = d3.select("body").append("div").attr("class", "tooltip").style("opacity", 0);
-    var formatTime = d3.time.format("%e %B");
-    var formatNumbers = d3.format(",")
-    var lineColor;
-
-    function handleMouseOver(d, i) {  // Add interactivity
-          lineColor = d3.select(this).style("stroke")
-          d3.select(this).style("stroke-width", 5).style("stroke", "steelblue");
-          console.log(d.state);
-          var date = roundDate(xScale.invert(d3.event.pageX - margin.left));
-          var cases = getCasesByDate(date, d.datapoints);
-
-          tooltip.transition()
-              .duration(200)
-              .style("opacity", .9);
-          tooltip.html(d.state + " (" + d.pact + ")" + "<br/>" + formatTime(date) + "<br/> cases: "  + formatNumbers(cases))
-          .style("left", (d3.event.pageX + 5) + "px")
-          .style("top", (d3.event.pageY - 60) + "px");
-          // console.log(d3.event.pageX)
-
-          }
-
-    function handleMouseOut(){
-      d3.select(this).style("stroke-width", 2).style("stroke", lineColor);
-      tooltip.transition()
-    .duration(500)
-    .style("opacity", 0);
-      // xScale.invert(d3.event.pageX - margin.left);
-
-    };
-});
+function getNodeCoordinate(el) {
+    el = el.node()
+    var rect = el.getBoundingClientRect(),
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    return { y: rect.top + scrollTop, x: rect.left + scrollLeft }
+}
 
 
-// Create Event Handlers for mouse
-function handleMouseOver() {  // Add interactivity
-      console.log('mouse is over');
-    };
+var lineColor
+var tooltip;
+var formatTime = d3.timeFormat("%e %B")
+var formatNumbers = d3.format(",")
+
+function handleMouseOver(d, i) {  // Add interactivity
+  lineColor = d3.select(this).style("stroke")
+  d3.select(this).style("stroke-width", 5).style("stroke", "steelblue");
+
+  var canvasNode = getNodeCoordinate(d3.select("#canvas"))
+  var canvasOffsetX = canvasNode.x
+  var canvasOffsetY = canvasNode.y
+  var date = new Date(xScale.invert(d3.event.pageX
+    - canvasOffsetX - margins.left))
+
+
+  date = getClosestDate(d, date)
+
+  var item = d.datapoints.find(e => {
+    return e.date == date
+  })
+
+
+  tooltip = d3.select("#chart").append("svg")
+    .attr("width", 100).attr("height", 67)
+    .attr("x", (d3.event.pageX + 5 - canvasNode.x))
+    .attr("y", (d3.event.pageY - 3) - canvasNode.y)
+    .style("pointer-events", "none")
+
+    console.log(canvasNode.y);
+
+tooltip
+  .append("rect")
+  .attr("class", "tooltip")
+  .style("opacity", 0)
+  .attr("width", "100%")
+  .attr("height", "100%")
+  .style("fill","white")
+  .style("opacity", 0.5)
+  .attr("stroke", "black")
+  // .attr("stroke-width", 3)
+
+
+
+  // tooltip.transition()
+  //     .duration(200)
+  //     .style("opacity", .9);
+  // tooltip.html(d.state + " (" + d.pact + ")" + "<br/>" + formatTime(date) + "<br/> cases: "  + formatNumbers(cases))
+
+  var text = tooltip.append("text")
+  .attr("x", "0%")
+  .attr("y", "0%")
+  .attr("dominant-baseline", "middle")
+  .attr("text-anchor", "middle")
+  .attr('font-size', 10)
+
+  text.append("tspan")
+    .text(d.state)
+    .attr("x", "50%")
+    .attr("dy", "1.2em")
+
+  text.append("tspan")
+    .text(formatTime(date))
+    .attr("x", "50%")
+    .attr("dy", "1.2em")
+
+
+
+  text.append("tspan")
+    .text("Pact: " + d.pact)
+    .attr("x", "50%")
+    .attr("dy", "1.2em")
+
+  text.append("tspan")
+    .text("Cases: " + formatNumbers(item.cases))
+    .attr("x", "50%")
+    .attr("dy", "1.2em")
+
+  text.append("tspan")
+    .text("Deaths: " + formatNumbers(item.deaths))
+    .attr("x", "50%")
+    .attr("dy", "1.2em")
+
+
+}
+
+function setFilter(filterType) {
+  filteringState.filterType = filterType;
+  update();
+}
+
+function filterBy(filterType) {
+  if(filterType == 'All') {return enrichedData}
+
+  if(["Western", "Northeast", "Midwest", "N/A"].includes(filterType)){
+    return enrichedData.filter(d => {
+      return d.pact == filterType
+    })
+  }
+
+  else if (["Yes", "NoMan", "NoManNoRec"].includes(filterType)) {
+    return enrichedData.filter(d => {
+      return d.stayAtHomeRec == filterType
+    })
+  }
+
+}
 
 function handleMouseOut(){
-  console.log('mouse is out');
-};
+  d3.select(this).style("stroke-width", 2).style("stroke", lineColor);
+  tooltip.remove()
+}
 
-// Define responsive behavior
-function resize() {
+// returns closest date to point clicked
+function getClosestDate(d, date) {
+  var distanceArray = []
+  d.datapoints.forEach((d) => {
+    distanceArray.push(Math.abs(d.date - date))
+  });
 
-  var width = parseInt(d3.select("#chart").style("width")) - margin.left - margin.right,
-  height = parseInt(d3.select("#chart").style("height")) - margin.top - margin.bottom;
+  var index = distanceArray.findIndex((d) => {
+    return d == d3.min(distanceArray)
+  })
 
-  // Update the range of the scale with new width/height
-  xScale.range([0, width]);
-  yScale.range([height, 0]);
+  return d.datapoints[index].date
 
-  // Update the axis and text with the new scale
-  svg.select('.x.axis')
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-
-  svg.select('.y.axis')
-    .call(yAxis);
-
-  // Force D3 to recalculate and update the line
-  svg.selectAll('.line')
-    .attr("d", function(d) { return line(d.datapoints); });
-
-  // Update the tick marks
-  xAxis.ticks(Math.max(width/75, 2));
-  yAxis.ticks(Math.max(height/50, 2));
-  // circle.attr("cx", parseInt(d3.select("#chart").style("width")) - 50);
-};
-
-// Call the resize function whenever a resize event occurs
-d3.select(window).on('resize', resize);
-
-// Call the resize function
-resize();
-
-
-//tooltip exction
-
-
-
-// j
+}
