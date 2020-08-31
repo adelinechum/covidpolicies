@@ -51,7 +51,7 @@ function setSort(sortType, data) {
   update(data)
 }
 
-function setFilter(filterType, data) {
+function setPactFilter(filterType, data) {
   filteringState.filterType = filterType
   update(data)
 }
