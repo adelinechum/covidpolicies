@@ -209,7 +209,7 @@ min-height: 100vh;
 	font-size: 15px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 300px) {
   text, main {
     width: 100%;
     height: auto;
