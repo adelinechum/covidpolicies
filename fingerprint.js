@@ -1,5 +1,4 @@
 {
-alert('here')
 var trendingData
 var timelineData
 var governorData
