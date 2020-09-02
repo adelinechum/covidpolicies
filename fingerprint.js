@@ -1,36 +1,40 @@
 {
-var trendingData
-var timelineData
-var governorData
+// global variables: data contains all graphing data,
+// graphObject contains all variables needed by graphs,
+// filtering state contains how the graphs are filtered
 var data
-const filteringState = {sortType: 'name', filterType: 'All'};
+var graphObject
+var filteringState
+var usData
+
+// TODO: Make the graph data a global variable. otherwise, would have to be
+// to too many functions because of update
+
+
+
+
 // main async function, used to wait for completion of asynch tasks
 (async function() {
   google.charts.load('current');
-  // load and prepare trending data
-  await setUpQuery('https://docs.google.com/spreadsheets/d/1r2KLSBgiou-osetpUPE3lp2nLh5dWOjuPScGft81AoY/gviz/tq?sheet=RAW_NYT_us-states',
-'select *');
-  var dataTable = await getQuery();
-  var trendingData = createTrendingData(createTable(dataTable));
+  var workbookName = 'https://docs.google.com/spreadsheets/d/1r2KLSBgiou-osetpUPE3lp2nLh5dWOjuPScGft81AoY/gviz/tq?sheet='
 
-  // load and prepare timeLine data
-  await setUpQuery('https://docs.google.com/spreadsheets/d/1r2KLSBgiou-osetpUPE3lp2nLh5dWOjuPScGft81AoY/gviz/tq?sheet=July31_Timeline',
-'select A, B, C, D, E, F, G, H, I')
-  dataTable = await getQuery()
-  timelineData = createtimelineData(createTable(dataTable))
+  var trendingData = await createDataFromQuery(workbookName +
+    'RAW_NYT_us-states', 'select *', createTrendingData);
 
-  // load and prepare Governer Data
-  await setUpQuery('https://docs.google.com/spreadsheets/d/1r2KLSBgiou-osetpUPE3lp2nLh5dWOjuPScGft81AoY/gviz/tq?sheet=Main_Categories',
-'select A, N')
-  dataTable = await getQuery()
+  var timelineData = await createDataFromQuery(workbookName + 'July31_Timeline',
+    'select A, B, C, D, E, F, G, H, I', createtimelineData);
 
-  governorData = createGovernorData(createTable(dataTable))
+  var governorData = await createDataFromQuery(workbookName + 'Main_Categories',
+    'select A, N', createGovernorData);
 
-  console.log(governorData);
+  usData = await createDataFromQuery(workbookName + 'RAW_NYT_US',
+    'select *', createUsData);
+
+  // console.log(usData);
 
   data = combineData(trendingData, timelineData, governorData);
 
-  initGraphs(data)
+  graphObject = initGraphs(data)
 
 // loop through each state and render data
   update(data);
@@ -86,48 +90,58 @@ function filterBy(filterType, data) {
   })
 }
 
-// set up google visualization query
-function setUpQuery(sheetLocation, queryStatement) {
-   var promise = new Promise(function(resolve, reject) {
-       google.charts.setOnLoadCallback(function(){
-           query = new google.visualization.Query(sheetLocation);
-           query.setQuery(queryStatement);
-          resolve('done');
-       }
-);
-   });
-   return promise;
-}
 
-// send query and return the response
-function getQuery(){
-  var promise = new Promise(function(resolve, reject){
-    query.send(function(response){
-      resolve(response);
-    })
+//create datasets from google sheet queries
+async function createDataFromQuery(sheetLocation, queryStatement, transformFunction) {
+  var promise = new Promise(async function (resolve, reject) {
+    await setUpQuery(sheetLocation, queryStatement);
+    var dataTable = await getQuery();
+    resolve(transformFunction(createTable(dataTable)))
   });
   return promise;
-}
 
-var sort;
-
-// transform google response into an array
-function createTable(response){
-  var dataArray =[];
-  var data = response.getDataTable();
-  var columns = data.getNumberOfColumns();
-  var rows = data.getNumberOfRows();
-  var table = [];
-
-  for (var r = 0; r < rows; r++) {
-    var row = [];
-    for (var c = 0; c < columns; c++) {
-      row.push(data.getFormattedValue(r, c));
-    }
-    table.push(row)
+  // helper function to set up google visualization query
+  function setUpQuery(sheetLocation, queryStatement) {
+     var promise = new Promise(function(resolve, reject) {
+         google.charts.setOnLoadCallback(function(){
+             query = new google.visualization.Query(sheetLocation);
+             query.setQuery(queryStatement);
+            resolve('done');
+         }
+  );
+     });
+     return promise;
   }
 
-  return table;
+  // helper function to send query and return the response
+  function getQuery(){
+    var promise = new Promise(function(resolve, reject){
+      query.send(function(response){
+        resolve(response);
+      })
+    });
+    return promise;
+  }
+
+// helper function to transform google response into an array
+  function createTable(response){
+    var dataArray =[];
+    var data = response.getDataTable();
+    var columns = data.getNumberOfColumns();
+    var rows = data.getNumberOfRows();
+    var table = [];
+
+    for (var r = 0; r < rows; r++) {
+      var row = [];
+      for (var c = 0; c < columns; c++) {
+        row.push(data.getFormattedValue(r, c));
+      }
+      table.push(row)
+    }
+
+    return table;
+  }
+
 }
 
 // create json from array of data for trending data
@@ -184,6 +198,23 @@ function createGovernorData(table) {
 return table;
 }
 
+function createUsData(table){
+
+    table = table.map(d =>
+      { return {
+        date: new Date(d[0]),
+        state: d[1],
+        cases: +d[3],
+        deaths: +d[4],
+        population: +d[6],
+        caseCapita: +d[7],
+      }}
+    )
+
+return table;
+
+  }
+
 // combine trending Data and timelineData into a single json
 function combineData(trendingData, timelineData, governorData){
 
@@ -216,11 +247,8 @@ function combineData(trendingData, timelineData, governorData){
       pact: casesData[0].pact
     })
   }
-  console.log(data);
   return data;
 }
-
-
 
 function renderAll(data) {
   d3.select("#fingerprint").selectAll("*").remove()
@@ -237,9 +265,9 @@ function renderAll(data) {
   //       renderData(state, d3.select("#fingerprint").append("svg"));
   //     },0)
   // });
-  // console.log(data);
   // helper function to create container
 
+// make containers with some padding for each graph
   function createFingerprintContainer() {
     return d3.select("#fingerprint")
       .append("div")
@@ -247,56 +275,50 @@ function renderAll(data) {
       .style("width","440px")
       .style("height","470px")
       .style("padding", "10px")
-
   }
-
 }
 
-
-
-var margin, width, height, maxDate, casesColor, timelineColor, deathColor, yCases, yDeaths
-
 // initalize variables used by all graphs
-
 function initGraphs(data) {
-  // properties of svg size
 
-  margin = ({top: 15, right: 0, bottom: 0, left: 60});
-  width = 420;
-  height = 450;
+  //graph dimensions
+  graphDims = {top: 15, right: 0, bottom: 0, left: 60, width: 420, height: 450};
+
+  scales = {
+  // color scale for cases
+    casesColor:  d3.scaleOrdinal()
+                    .domain(['Republican','Swing','Democrat'])
+                    .range(['#F03F4E','#A47AF0','#6292F0']),
+  // color scale for timeline
+    timelineColor: d3.scaleOrdinal()
+                    .domain(['Republican','Swing','Democrat'])
+                    .range(['#D60012','#4B00D6','#0047D6']),
+  // color scale for death graph
+    deathColor: d3.scaleOrdinal()
+                    .domain(['Republican','Swing','Democrat'])
+                    .range(['#570007','#1E0057','#001D57']),
+  // y-axis for cases
+    yCases: d3.scaleLinear()
+                    .domain([0, .03])
+                    .range([graphDims.height/3,0 + graphDims.top]),
+  // y-axis for death graph
+    yDeaths: d3.scaleLinear()
+                    .domain([0, 32500])
+                    .range([graphDims.height * 2/3,graphDims.height]),
+    yTimeline: d3.scaleBand()
+                    .domain(d3.range(data[0].timeline.length))
+                    .range([graphDims.top + graphDims.height/3,
+                      15 * data[0].timeline.length - graphDims.bottom
+                      + graphDims.height/3])
+  };
+
   // alternative maxDate based on last date in data
   // var maxDate = d3.max(timeLineArray.map(d => d.end));
   maxDate = new Date(2020,08,01);
 
-  // y-axis for timeline
-  yTimeline = d3.scaleBand()
-    .domain(d3.range(data[0].timeline.length))
-    .range([margin.top + height/3, 15 * data[0].timeline.length - margin.bottom + height/3])
+  filteringState = {sortType: 'name', filterType: 'All'};
 
-  // color scale for cases
-  casesColor = d3.scaleOrdinal()
-    .domain(['Republican','Swing','Democrat'])
-    .range(['#F03F4E','#A47AF0','#6292F0'])
-
-  // color scale for timeline
-  timelineColor = d3.scaleOrdinal()
-    .domain(['Republican','Swing','Democrat'])
-    .range(['#D60012','#4B00D6','#0047D6'])
-
-  // color scale for death graph
-  deathColor = d3.scaleOrdinal()
-    .domain(['Republican','Swing','Democrat'])
-    .range(['#570007','#1E0057','#001D57'])
-
-  // y-axis for cases
-  yCases = d3.scaleLinear()
-    .domain([0, .03])
-    .range([height/3,0 + margin.top]);
-
-  // y-axis for death graph
-  yDeaths = d3.scaleLinear()
-  .domain([0, 32500])
-  .range([height * 2/3,height])
+  return {graphDims: graphDims, scales: scales, maxDate: maxDate}
 
 }
 
@@ -304,27 +326,32 @@ function initGraphs(data) {
 // should be able to just update with d3
 function renderData(state, svg){
 
-// get min and max date
+// required: maxDate, margin, width, height, yTimeline, timelineColor, yCases, yDeaths
+
+// unpack graphObject
+graphDims = graphObject.graphDims
+scales = graphObject.scales
+maxDate = graphObject.maxDate
+
+
+// get min date
 var minDate = state.firstPolicy
 
 // x-axis for all graphs
 x = d3.scaleLinear()
   .domain([minDate, maxDate])
-  .range([margin.left, width - margin.right])
+  .range([graphDims.left, graphDims.width - graphDims.right])
   .clamp(true);
 
   {
     // create timelines
     svg
-      .attr("width", width)
-      .attr("height", height+ margin.bottom + margin.top)
+      .attr("width", graphDims.width)
+      .attr("height", graphDims.height+ graphDims.bottom + graphDims.top)
       // .attr("height", (y.range()[1]+ margin.bottom + margin.top) * 3)
       .attr("font-family", "sans-serif")
       .attr("font-size", "10")
       .attr("text-anchor", "end");
-
-      // svg.style("z-index:", 3)
-
 
     // add titles to each graph
     svg.append("text").attr("x", 100).attr("y", 15).attr("text-anchor", "start")
@@ -345,17 +372,16 @@ x = d3.scaleLinear()
     const bar = svg.selectAll("g")
     .data(state.timeline)
     .join("g")
-      .attr("transform", (d, i) => `translate(0,${yTimeline(i)})`);
+      .attr("transform", (d, i) => `translate(0,${scales.yTimeline(i)})`);
 
     bar.append("rect")
-      // .attr("fill", "steelblue")
-      .attr("fill", d => timelineColor(d.color))
+      .attr("fill", d => scales.timelineColor(d.color))
       .attr("width", d => x(d.end - d.start + minDate.getTime()))
 
       .attr("x", d => x(d.start))
-      .attr("height", yTimeline.bandwidth() - 1);
+      .attr("height", scales.yTimeline.bandwidth() - 1);
 
-    bar
+    bar.selectAll("rect")
       .on("mouseover", handleMouseOverTimeline)
       .on("mouseout", handleMouseOutTimeline)
       .on("mousemove", handleMouseMoveTimeline)
@@ -371,14 +397,14 @@ x = d3.scaleLinear()
 
 // x axis
     svg.append("g")
-      .attr("transform", `translate(0,${yTimeline.range()[1]})`)
+      .attr("transform", `translate(0,${scales.yTimeline.range()[1]})`)
       .call(d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat("%b")));
 
 
 // create trending graphs
       svg.append("g")
-      .attr("transform", `translate(${margin.left},${0})`)
-      .call(d3.axisLeft(yCases).ticks(5));
+      .attr("transform", `translate(${graphDims.left},${0})`)
+      .call(d3.axisLeft(scales.yCases).ticks(5));
 
       const vertical_bars = svg
       .selectAll(".vb")
@@ -388,11 +414,11 @@ x = d3.scaleLinear()
 
       vertical_bars.append("rect")
         .attr("width", 1)
-        .attr("fill", d => casesColor(d.color))
+        .attr("fill", d => scales.casesColor(d.color))
         // .attr("fill", "steelblue")
         .attr("x", d => x(d.date))
-        .attr("height", d => height/3 - yCases(d.caseCapita))
-        .attr("y", d => yCases(d.caseCapita))
+        .attr("height", d => graphDims.height/3 - scales.yCases(d.caseCapita))
+        .attr("y", d => scales.yCases(d.caseCapita))
         ;
 
         vertical_bars.selectAll("rect")
@@ -402,12 +428,12 @@ x = d3.scaleLinear()
 
         // y axis
         svg.append("g")
-        .attr("transform", `translate(${margin.left},${0})`)
-        .call(d3.axisLeft(yCases).ticks(5));
+        .attr("transform", `translate(${graphDims.left},${0})`)
+        .call(d3.axisLeft(scales.yCases).ticks(5));
 
         svg.append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`)
-        .call(d3.axisLeft(yDeaths));
+        .attr("transform", `translate(${graphDims.left},${graphDims.top})`)
+        .call(d3.axisLeft(scales.yDeaths));
 
         const vertical_bars_2 = svg
         .selectAll(".vb2")
@@ -416,15 +442,42 @@ x = d3.scaleLinear()
 
         vertical_bars_2.append("rect")
           .attr("width", 1)
-          .attr("fill", d => deathColor(d.color))
+          .attr("fill", d => scales.deathColor(d.color))
           // .attr("fill", "steelblue")
           .attr("x", d => x(d.date))
-          .attr("height", d => yDeaths(d.deaths) - height * 2/3)
-          .attr("y", height * 2/3 + margin.top);
+          .attr("height", d => scales.yDeaths(d.deaths) - graphDims.height * 2/3)
+          .attr("y", graphDims.height * 2/3 + graphDims.top);
 
-        vertical_bars_2
+        vertical_bars_2.selectAll("rect")
           .on("mouseover", handleMouseOverVerticleBars)
           .on("mouseout", handleMouseOutVerticleBars)
+
+        // add us cases
+        var usLine = svg.append("path")
+          .datum(usData)
+          .attr("fill", "none")
+          .attr("stroke", scales.timelineColor("Swing"))
+          .attr("stroke-width", 1)
+          .attr("d", d3.line()
+          .x(d => x(d.date))
+          .y(d => scales.yCases(d.caseCapita))
+          )
+
+        usLine
+        .on("mouseover", handleMouseOverUsLine)
+        .on("mouseout", handleMouseOutUsLine)
+
+        // // add us cases
+        // svg.append("path")
+        //   .datum(usData)
+        //   .attr("fill", "none")
+        //   .attr("stroke", "black")
+        //   .attr("stroke-width", 1.5)
+        //   .attr("d", d3.line()
+        //   .x(d => x(d.date))
+        //   .y(d => scales.yDeaths(d.deaths))
+        //   )
+
 // j
       }
 
@@ -448,7 +501,6 @@ function createTooltip() {
     .style("font-size", "10px")
 
 
-    // console.log(tooltip);
     tooltip
     .style("position", "fixed")
     .style("top",d3.event.clientY - 67 + "px")
@@ -461,8 +513,9 @@ var formatTime = d3.timeFormat("%e %B")
 var formatNumbers = d3.format(",")
 
 function handleMouseOverVerticleBars(d, i) {
-  // console.log(d.date);
-  // console.log(d.cases);
+
+d3.select(this).attr("width", 5)
+
   createTooltip();
 
   var text = tooltip.append("text")
@@ -476,26 +529,28 @@ function handleMouseOverVerticleBars(d, i) {
 
 function handleMouseOutVerticleBars(){
   // d3.select(this).style("stroke-width", 2).style("stroke", lineColor);
+  d3.select(this).attr("width", 1)
   tooltip.remove()
 }
 
+// TODO: move to object
+
 function handleMouseOverTimeline(d, i) {
+
+  var selection = d3.select(this)
+
+  selection.attr("fill", graphObject.scales.deathColor(d.color))
+
   createTooltip();
 
-  var width = "200px";
-  var height = "150px";
+  // var width = "200px";
+  // var height = "150px";
 
   var text = tooltip.append("text")
 
   appendText(text, d.policy + "<br>" + "Start Date: "
    + formatTime(d.start) + "<br>" + "End Date: "
    + formatTime(d.end) + "<br>" + "Notes: " + d.notes)
-
-  // appendText(text, d.policy)
-  // appendText(text, "Start Date: " + formatTime(d.start))
-  // appendText(text, "End Date: " + formatTime(d.end))
-  // appendText(text, "Notes: " + d.notes)
-
 
 }
 
@@ -505,10 +560,36 @@ function handleMouseMoveTimeline() {
     .style("left", d3.event.clientX + "px")
 }
 
-function handleMouseOutTimeline() {
+function handleMouseOutTimeline(d) {
+
+  d3.select(this).attr("fill", graphObject.scales.timelineColor(d.color))
   tooltip.remove()
 }
 
+function handleMouseOverUsLine(d) {
+
+  createTooltip();
+
+// TODO: get cases from graph
+
+  var text = tooltip.append("text")
+
+  appendText(text, formatTime(d.date) + "<br>"
+    + "US Cases: " + formatNumbers(d.cases))
+
+  var selection = d3.select(this)
+  selection.attr("stroke", graphObject.scales.deathColor("Swing"))
+  selection.attr("stroke-width", 4.5)
+}
+
+function handleMouseOutUsLine(d) {
+  var selection = d3.select(this)
+  selection.attr("stroke", graphObject.scales.timelineColor("Swing"))
+  selection.attr("stroke-width", 1)
+
+  tooltip.remove()
+
+}
 
 function getNodeCoordinate(el) {
     el = el.node()

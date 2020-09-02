@@ -145,8 +145,6 @@ function initGraphs(data){
     .y(function(d){return yScale(d.concentration)})
     .curve(d3.curveBasis);
 
-    console.log(enrichedData);
-
     svg = d3.select("#chart")
                 .attr("width", width + margins.left + margins.right)
                 .attr("height", height + margins.top + margins.bottom)
@@ -245,8 +243,6 @@ function handleMouseOver(d, i) {  // Add interactivity
     .attr("x", (d3.event.pageX + 5 - canvasNode.x))
     .attr("y", (d3.event.pageY - 3) - canvasNode.y)
     .style("pointer-events", "none")
-
-    console.log(canvasNode.y);
 
 tooltip
   .append("rect")
