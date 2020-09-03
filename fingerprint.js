@@ -55,10 +55,20 @@ function setSort(sortType, data) {
   update(data)
 }
 
-function setPactFilter(filterType, data) {
-  filteringState.filterType = filterType
+
+function setPactFilter() {
+  var selectBox = document.getElementById("pacts")
+  var  value = selectBox.options[selectBox.selectedIndex].value
+  filteringState.filterType = value
+
   update(data)
 }
+
+// function setPactFilter(filterType, data) {
+//   filteringState.filterType = filterType
+//   update(data)
+// }
+
 
 function sortBy(sortType, data) {
   switch (sortType) {
@@ -358,7 +368,7 @@ var x = graphObject.scales.x = d3.scaleLinear()
 
       var topMargin = 15
 
-        addText(svg, state.state, leftMargin, topMargin,"20px")
+      addText(svg, state.state, leftMargin, topMargin,"20px")
 
       addText(svg, "Population: " + d3.format(",")(state.casesData[0].population), leftMargin,
         topMargin + 15)
@@ -386,17 +396,21 @@ var x = graphObject.scales.x = d3.scaleLinear()
     .join("g")
       .attr("transform", (d, i) => `translate(0,${scales.yTimeline(i)})`);
 
+    // first timeline bars
     bar.append("rect")
       .attr("fill", d => scales.timelineColor(d.color))
       .attr("width", d => x(d.end - d.start + minDate.getTime()))
       .attr("x", d => x(d.start))
-      .attr("height", scales.yTimeline.bandwidth() - 1);
+      .attr("height", scales.yTimeline.bandwidth() - 1)
+      .attr("class", "timeline1");
 
+    // second timeline bars
     bar.append("rect")
       .attr("fill", d => scales.timelineColor(d.color))
       .attr("width", d => x(d.end2 - d.start2 + minDate.getTime()))
       .attr("x", d => x(d.start2))
-      .attr("height", scales.yTimeline.bandwidth() - 1);
+      .attr("height", scales.yTimeline.bandwidth() - 1)
+      .attr("class", "timeline2");
 
 
     bar.selectAll("rect")
@@ -501,12 +515,14 @@ var x = graphObject.scales.x = d3.scaleLinear()
 
 }
 
+//section for adding mouse events
+
+var tooltip
+
 // helper function to append a new line of text
 function appendText(text, textContent) {
   text.html(textContent)
 }
-
-var tooltip
 
 function createTooltip() {
   tooltip = d3.select("body").append("div")
@@ -566,9 +582,23 @@ function handleMouseOverTimeline(d, i) {
 
   var text = tooltip.append("text")
 
-  appendText(text, d.policy + "<br>" + "Start Date: "
-   + formatTime(d.start) + "<br>" + "End Date: "
-   + formatTime(d.end) + "<br>" + "Notes: " + d.notes)
+  var notes = ""
+
+  if(d.notes != ""){
+    notes = "<br>Notes: " + d.notes
+  }
+
+  if(selection.attr("class") == "timeline1"){
+    appendText(text, d.policy + "<br>" + "Start Date: "
+     + formatTime(d.start) + "<br>" + "End Date: "
+     + formatTime(d.end) + notes)
+  }
+
+  else if (selection.attr("class") == "timeline2") {
+    appendText(text, d.policy + "<br>" + "Start Date: "
+     + formatTime(d.start2) + "<br>" + "End Date: "
+     + formatTime(d.end2) + notes)
+  }
 
 }
 
