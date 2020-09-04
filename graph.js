@@ -304,7 +304,7 @@ function setFilter() {
 
   update()
 }
-// 
+//
 // function setFilter(filterType) {
 //   filteringState.filterType = filterType;
 //   update();
