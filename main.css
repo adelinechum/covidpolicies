@@ -144,7 +144,7 @@ font-feature-settings: "kern" 1;
 font-kerning: normal;
 display: flex;
 min-height: 100vh;
-/* flex-direction: column; */
+flex-direction: column;
 }
 
 /* Column container */
@@ -153,6 +153,7 @@ min-height: 100vh;
   display: flex;
   -ms-flex-wrap: wrap; /* IE10 */
   flex-wrap: wrap;
+	flex-direction: row;
 }
 
 /* Main column */
@@ -162,6 +163,7 @@ min-height: 100vh;
   background-color: white;
   padding:0px;
 	align: center;
+
 }
 
 .text{
@@ -179,6 +181,7 @@ min-height: 100vh;
 	font-weight: light;
 	opacity: 85%;
 	font-size: 15px;
+	flex-direction: row;
 }
 
 
@@ -194,6 +197,7 @@ min-height: 100vh;
 	font-weight: light;
 	opacity: 85%;
 	font-size: 15px;
+	flex-direction: row;
 }
 
 .halfwidth{
@@ -254,7 +258,7 @@ min-height: 100vh;
 }
 
 /* DO I need anything below? */
-.axis path,
+/* .axis path,
 .axis line {
   fill: none;
   stroke: #000;
@@ -281,17 +285,17 @@ min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
   /* flex-direction: column; */
-  margin: 20px;
-}
+  /* margin: 20px; */
+/* } */
 
-.timeline-label{
+/* .timeline-label{
   font-size: 7px;
-}
+} */
 
-.timelineHeader{
+/* .timelineHeader{
   font-size: 12px;
-}
+} */
 
-.tick text{
+/* .tick text{
   text;
-}
+} */
