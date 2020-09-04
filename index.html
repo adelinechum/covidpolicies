@@ -9,6 +9,13 @@
   		<link rel="stylesheet" type="text/css" href="main.css">
 		<link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
 		<script src="https://d3js.org/d3.v5.min.js"></script>
+		<script type="text/javascript">
+			function changeFunc() {
+				var selectBox = document.getElementById("pacts");
+				var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+				alert(selectedValue);
+			}
+		</script>
 
 		<style>
 		img{ width:100%
@@ -109,18 +116,18 @@
 						<div id="graphContainer" style=width:100%>
 							<label for="pacts">Filter by Pact or Stay At Home Policy:</label>
 
-							<select name="filterBy" id="filterBy">
+							<select name="filterBy" id="filterBy" onchange="setFilter()">
 								<optgroup label="Pacts">
-									<option value="all" onclick="setFilter('All')">All States</option>
-									<option value="northeast" onclick="setFilter('Northeast')">Northeast</option>
-									<option value="midwest" onclick="setFilter('Midwest')">Midwest</option>
-									<option value="western" onclick="setFilter('Western')">Western</option>
-									<option value="na" onclick="setFilter('N/A')">N/A</option>
+									<option value="All">All States</option>
+									<option value="Northeast">Northeast</option>
+									<option value="Midwest">Midwest</option>
+									<option value="Western">Western</option>
+									<option value="N/A">N/A</option>
 								</optgroup>
 								<optgroup label="Stay At Home Policy">
-									<option value="man" onclick="setFilter('Yes')">Had Mandate</option>
-									<option value="noMan" onclick="setFilter('NoMan')">No Mandate</option>
-									<option value="noManNoRec" onclick="setFilter('NoManNoRec')">No Mandate and No Recommendation</option>
+									<option value="Yes">Had Mandate</option>
+									<option value="NoMan">No Mandate</option>
+									<option value="NoManNoRec">No Mandate and No Recommendation</option>
 								</optgroup>
 							</select>
 							<svg id="chart"></svg>
@@ -165,12 +172,12 @@
 			<button type="button" onclick="setSort('cases', data)">Sort By Cases</button>
 			<button type="button" onclick="setSort('deaths', data)">Sort By Deaths</button>
 			<label for="pacts">Filter by Pact:</label>
-			<select name="pacts" id="pacts">
-				<option value="all" onclick="setPactFilter('All', data)">All</option>
-				<option value="northeast" onclick="setPactFilter('Northeast', data)">Northeast</option>
-				<option value="midwest" onclick="setPactFilter('Midwest', data)">Midwest</option>
-				<option value="western" onclick="setPactFilter('Western', data)">Western</option>
-				<option value="na" onclick="setPactFilter('N/A', data)">N/A</option>
+			<select name="pacts" id="pacts" onchange="setPactFilter();">
+				<option value="All">All</option>
+				<option value="Northeast">Northeast</option>
+				<option value="Midwest">Midwest</option>
+				<option value="Western">Western</option>
+				<option value="N/A">N/A</option>
 			</select>
 		</div>
 

@@ -297,10 +297,18 @@ tooltip
 
 }
 
-function setFilter(filterType) {
-  filteringState.filterType = filterType;
-  update();
+function setFilter() {
+  var selectBox = document.getElementById("filterBy")
+  var  value = selectBox.options[selectBox.selectedIndex].value
+  filteringState.filterType = value
+
+  update()
 }
+// 
+// function setFilter(filterType) {
+//   filteringState.filterType = filterType;
+//   update();
+// }
 
 function filterBy(filterType) {
   if(filterType == 'All') {return enrichedData}

@@ -21,7 +21,7 @@ var usData
   var trendingData = await createDataFromQuery(workbookName +
     'RAW_NYT_us-states', 'select *', createTrendingData);
 
-  var timelineData = await createDataFromQuery(workbookName + 'July31_Timeline',
+  var timelineData = await createDataFromQuery(workbookName + 'Timeline',
     'select A, B, C, D, E, F, G, H, I', createtimelineData);
 
   var governorData = await createDataFromQuery(workbookName + 'Main_Categories',
@@ -55,10 +55,20 @@ function setSort(sortType, data) {
   update(data)
 }
 
-function setPactFilter(filterType, data) {
-  filteringState.filterType = filterType
+
+function setPactFilter() {
+  var selectBox = document.getElementById("pacts")
+  var  value = selectBox.options[selectBox.selectedIndex].value
+  filteringState.filterType = value
+
   update(data)
 }
+
+// function setPactFilter(filterType, data) {
+//   filteringState.filterType = filterType
+//   update(data)
+// }
+
 
 function sortBy(sortType, data) {
   switch (sortType) {
@@ -309,7 +319,8 @@ function initGraphs(data) {
                     .domain(d3.range(data[0].timeline.length))
                     .range([graphDims.top + graphDims.height/3,
                       15 * data[0].timeline.length - graphDims.bottom
-                      + graphDims.height/3])
+                      + graphDims.height/3]),
+    x: null
   };
 
   // alternative maxDate based on last date in data
@@ -338,7 +349,7 @@ maxDate = graphObject.maxDate
 var minDate = state.firstPolicy
 
 // x-axis for all graphs
-x = d3.scaleLinear()
+var x = graphObject.scales.x = d3.scaleLinear()
   .domain([minDate, maxDate])
   .range([graphDims.left, graphDims.width - graphDims.right])
   .clamp(true);
@@ -349,37 +360,58 @@ x = d3.scaleLinear()
       .attr("width", graphDims.width)
       .attr("height", graphDims.height+ graphDims.bottom + graphDims.top)
       // .attr("height", (y.range()[1]+ margin.bottom + margin.top) * 3)
-      .attr("font-family", "sans-serif")
-      .attr("font-size", "10")
+      .attr("font-family", "'Open Sans', 'Roboto', sans-serif")
+      .attr("font-size", "10px")
       .attr("text-anchor", "end");
 
-    // add titles to each graph
-    svg.append("text").attr("x", 100).attr("y", 15).attr("text-anchor", "start")
-      .text(state.state).style("font-size", "20px")
-      .style("font-family","'Open Sans', 'Roboto', sans-serif")
+      var leftMargin = 75
 
-    svg.append("text").attr("x", 100).attr("y", 30).attr("text-anchor", "start")
-      .text("Cases: " + d3.format(",")(state.currentCases)
-      + ", Deaths: " + d3.format(",")(state.currentDeaths))
-      .style("font-size", "10px")
-      .style("font-family","'Open Sans', 'Roboto', sans-serif")
+      var topMargin = 15
 
-    svg.append("text").attr("x", 100).attr("y", 45).attr("text-anchor", "start")
-      .text("Gov. " + state.governor)
-      .style("font-size", "10px")
-      .style("font-family","'Open Sans', 'Roboto', sans-serif")
+      addText(svg, state.state, leftMargin, topMargin,"20px")
+
+      addText(svg, "Population: " + d3.format(",")(state.casesData[0].population), leftMargin,
+        topMargin + 15)
+
+      addText(svg, "Cases: " + d3.format(",")(state.currentCases)
+      + ", Deaths: " + d3.format(",")(state.currentDeaths),
+        leftMargin, topMargin + 30)
+
+      addText(svg, "Gov. " + state.governor, leftMargin, topMargin + 45)
+
+    // helper function to add text box
+    function addText(svg, text, x, y, fontSize="10px") {
+      return svg.append("text")
+              .attr("x", x)
+              .attr("y", y)
+              .attr("text-anchor", "start")
+              .text(text)
+              .style("font-size", fontSize)
+    }
+
+    // create timeline graphs
 
     const bar = svg.selectAll("g")
     .data(state.timeline)
     .join("g")
       .attr("transform", (d, i) => `translate(0,${scales.yTimeline(i)})`);
 
+    // first timeline bars
     bar.append("rect")
       .attr("fill", d => scales.timelineColor(d.color))
       .attr("width", d => x(d.end - d.start + minDate.getTime()))
-
       .attr("x", d => x(d.start))
-      .attr("height", scales.yTimeline.bandwidth() - 1);
+      .attr("height", scales.yTimeline.bandwidth() - 1)
+      .attr("class", "timeline1");
+
+    // second timeline bars
+    bar.append("rect")
+      .attr("fill", d => scales.timelineColor(d.color))
+      .attr("width", d => x(d.end2 - d.start2 + minDate.getTime()))
+      .attr("x", d => x(d.start2))
+      .attr("height", scales.yTimeline.bandwidth() - 1)
+      .attr("class", "timeline2");
+
 
     bar.selectAll("rect")
       .on("mouseover", handleMouseOverTimeline)
@@ -483,12 +515,14 @@ x = d3.scaleLinear()
 
 }
 
+//section for adding mouse events
+
+var tooltip
+
 // helper function to append a new line of text
 function appendText(text, textContent) {
   text.html(textContent)
 }
-
-var tooltip
 
 function createTooltip() {
   tooltip = d3.select("body").append("div")
@@ -548,9 +582,23 @@ function handleMouseOverTimeline(d, i) {
 
   var text = tooltip.append("text")
 
-  appendText(text, d.policy + "<br>" + "Start Date: "
-   + formatTime(d.start) + "<br>" + "End Date: "
-   + formatTime(d.end) + "<br>" + "Notes: " + d.notes)
+  var notes = ""
+
+  if(d.notes != ""){
+    notes = "<br>Notes: " + d.notes
+  }
+
+  if(selection.attr("class") == "timeline1"){
+    appendText(text, d.policy + "<br>" + "Start Date: "
+     + formatTime(d.start) + "<br>" + "End Date: "
+     + formatTime(d.end) + notes)
+  }
+
+  else if (selection.attr("class") == "timeline2") {
+    appendText(text, d.policy + "<br>" + "Start Date: "
+     + formatTime(d.start2) + "<br>" + "End Date: "
+     + formatTime(d.end2) + notes)
+  }
 
 }
 
@@ -568,14 +616,26 @@ function handleMouseOutTimeline(d) {
 
 function handleMouseOverUsLine(d) {
 
+  // getNodeCoordinate(d3.select(this.parentElement));
+
+  var x = d3.mouse(this.parentElement)[0]
+  var date = getClosestDate(d,new Date(graphObject.scales.x.invert(x)))
+
+  var dateData = d.filter(d => {
+    return d.date == date
+  })[0]
+
+  var cases = dateData.cases
+  var deaths = dateData.deaths
+
   createTooltip();
 
 // TODO: get cases from graph
-
   var text = tooltip.append("text")
 
-  appendText(text, formatTime(d.date) + "<br>"
-    + "US Cases: " + formatNumbers(d.cases))
+  appendText(text, formatTime(date) + "<br>"
+    + "US Cases: " + formatNumbers(cases) + "<br>"
+    + "US Deaths: " + formatNumbers(deaths))
 
   var selection = d3.select(this)
   selection.attr("stroke", graphObject.scales.deathColor("Swing"))
@@ -591,11 +651,19 @@ function handleMouseOutUsLine(d) {
 
 }
 
-function getNodeCoordinate(el) {
-    el = el.node()
-    var rect = el.getBoundingClientRect(),
-    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    return { y: rect.top + scrollTop, x: rect.left + scrollLeft }
+// returns index of array corresponding to closest date
+function getClosestDate(d, date) {
+  var distanceArray = []
+  d.forEach((d) => {
+    distanceArray.push(Math.abs(d.date - date))
+  });
+
+  var index = distanceArray.findIndex((d) => {
+    return d == d3.min(distanceArray)
+  })
+
+  return d[index].date
+
 }
+
 }
