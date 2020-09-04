@@ -422,7 +422,7 @@ var x = graphObject.scales.x = d3.scaleLinear()
     // bar.append("text")
     //   .attr("fill", "white")
     //   .attr("x", d => x(d.end) - 3)
-    //   .attr("y", yTimeline.bandwidth() / 2)
+      // .attr("y", yTimeline.bandwidth() / 2)
     //   .attr("dy", "0.35em")
     //   .text(d => d.policy);
 
@@ -430,8 +430,7 @@ var x = graphObject.scales.x = d3.scaleLinear()
 // x axis
     svg.append("g")
       .attr("transform", `translate(0,${scales.yTimeline.range()[1]})`)
-      .call(d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat("%b")));
-
+      .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%b")));
 
 // create trending graphs
       svg.append("g")
@@ -488,8 +487,9 @@ var x = graphObject.scales.x = d3.scaleLinear()
         var usLine = svg.append("path")
           .datum(usData)
           .attr("fill", "none")
-          .attr("stroke", scales.timelineColor("Swing"))
-          .attr("stroke-width", 1)
+          .attr("stroke", "black")
+          .attr("stroke-dasharray", 3)
+          .attr("stroke-width", 1.5)
           .attr("d", d3.line()
           .x(d => x(d.date))
           .y(d => scales.yCases(d.caseCapita))
@@ -644,7 +644,7 @@ function handleMouseOverUsLine(d) {
 
 function handleMouseOutUsLine(d) {
   var selection = d3.select(this)
-  selection.attr("stroke", graphObject.scales.timelineColor("Swing"))
+  selection.attr("stroke", "black")
   selection.attr("stroke-width", 1)
 
   tooltip.remove()
